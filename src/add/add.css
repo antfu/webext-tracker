@@ -1,7 +1,10 @@
+html {
+  opacity: 0.95;
+}
 box {
   display      : block;
   padding      : 0.5em 1em;
-  margin       : 0.5em;
+  margin       : 1em;
   background   : #fff;
   border-radius: 0.6em;
   box-shadow   : 1px 1px 19px 0 rgba(50, 50, 50, 0.3);
@@ -12,20 +15,22 @@ title {
   font-size  : 1.2em;
 }
 desc {
-  display  : block;
-  color    : rgba(0,0,0,0.4);
+  display: block;
+  color  : rgba(0,0,0,0.4);
 }
 label {
+  font-weight: bold;
   display   : block;
-  font-size : 1.1em;
+  font-size : 1em;
   margin-top: 0.5em;
-  color    : rgba(0,0,0,0.9);
+  color     : rgba(0,0,0,0.9);
 }
 field {
-  display      : block;
+  display      : inline-block;
   background   : rgba(0,0,0,0.04);
   border-radius: 0.2em;
-  padding      : 0.2em;
+  word-break   : break-all;
+  padding      : 0 0.3em 0.1em;
   color        : rgba(0,0,0,0.7);
 }
 button {
@@ -34,7 +39,7 @@ button {
   border       : 1px solid rgba(0,0,0,0.5);
   border-radius: 0.4em;
   background   : rgba(0,0,0,0);
-  padding      : 0.2em 0.8em;
+  padding      : 0.2em 1em 0.1em;
   transition   : background 0.2s ease-in-out;
 }
 button:hover {

@@ -11,6 +11,7 @@
 
   "permissions": [
     "contextMenus",
+    "storage",
     "http://*/*",
     "https://*/*"
   ],
@@ -31,6 +32,6 @@
   }],
 
   "web_accessible_resources": [
-    "dialog/*"
+    "add/*"
   ]
 }

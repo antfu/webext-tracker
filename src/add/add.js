@@ -4,7 +4,9 @@ var text_el = document.getElementById('text')
 
 var data = null;
 var handleRequest = function (request, sender, cb) {
-  if (request.type === 'element_update') {
+  if (request.to !== 'adding')
+    return
+  if (request.type === 'update') {
     data = request.data;
     url_el.innerHTML = request.data.url || ' '
     xpath_el.innerHTML = request.data.xpath || ' '
@@ -14,8 +16,14 @@ var handleRequest = function (request, sender, cb) {
 
 chrome.runtime.onMessage.addListener(handleRequest)
 
-document.getElementById('cancel').addEventListener("click", function (){
+document.getElementById('cancel').addEventListener('click', function () {
+  chrome.runtime.sendMessage({to: 'dialog', type: 'hide'})
+});
+
+document.getElementById('watch').addEventListener('click', function () {
   chrome.runtime.sendMessage({
-    type: 'dialog_hide'
+    to: 'background',
+    type: 'watch',
+    data: data
   })
 });

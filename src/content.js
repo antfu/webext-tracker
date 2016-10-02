@@ -1,3 +1,4 @@
+var SHIFT_KEYCODE = 16
 var right_clicked_el = null
 var dialog = new Dialog()
 
@@ -9,24 +10,12 @@ document.addEventListener("mousedown", function (event) {
 }, true)
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request === "content_wacth_this") {
-    xh.clearHighlights()
+  if (request.to !== 'content')
+    return
+  if (request.type === 'watch_right_clicked') {
     if (right_clicked_el) {
-      var xpath = xh.makeQueryForElement(right_clicked_el)
-      var querys = xh.evaluateQuery(xpath)
-      chrome.runtime.sendMessage({
-        type: 'dialog_show'
-      })
-      chrome.runtime.sendMessage({
-        type: 'element_update',
-        data: {
-          url: location.href,
-          xpath: xpath,
-          text: querys.text,
-          els: querys.els,
-          count: querys.count
-        }
-      })
+      chrome.runtime.sendMessage( {to: 'dialog', type: 'show'} )
+      dialog.watch(right_clicked_el);
     }
   }
 });

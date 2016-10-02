@@ -1,5 +1,8 @@
 Dialog = function () {
   this._handle_request = this.handle_request.bind(this);
+  this._watch = this.watch.bind(this);
+  this._mousemove = this.mousemove.bind(this);
+  this._keydown = this.keydown.bind(this);
   /*
   this.boundHandleRequest_ = this.handleRequest_.bind(this)
   this.boundMouseMove_ = this.mouseMove_.bind(this)
@@ -9,9 +12,10 @@ Dialog = function () {
   this.currEl_ = null
   */
   this.in_dom = false
+  this.current_el = null
 
   this.iframe = document.createElement('iframe')
-  this.iframe.src = chrome.runtime.getURL('dialog/dialog.html')
+  this.iframe.src = chrome.runtime.getURL('add/add.html')
   this.iframe.id = 'wew-dialog'
     // Init to hidden so first showBar_() triggers fade-in.
   this.iframe.classList.add('hidden')
@@ -33,11 +37,35 @@ Dialog.prototype.append = function () {
 
 Dialog.prototype.show = function () {
   this.append()
+  document.addEventListener('mousemove', this._mousemove)
+  document.addEventListener('keydown', this._keydown)
   this.iframe.classList.remove('hidden')
 }
 
 Dialog.prototype.hide = function () {
+  document.removeEventListener('mousemove', this._mousemove)
+  document.removeEventListener('keydown', this._keydown)
   this.iframe.classList.add('hidden')
+  xh.clearHighlights()
+}
+
+Dialog.prototype.watch = function(el) {
+  el = el || this.current_el
+  xh.clearHighlights()
+  var xpath = xh.makeQueryForElement(el)
+  var querys = xh.evaluateQuery(xpath)
+
+  chrome.runtime.sendMessage({
+    to: 'adding',
+    type: 'update',
+    data: {
+      url: location.href,
+      xpath: xpath,
+      text: querys.text,
+      els: querys.els,
+      count: querys.count
+    }
+  })
 }
 
 Dialog.prototype.toggle = function () {
@@ -47,12 +75,29 @@ Dialog.prototype.toggle = function () {
     this.hide()
 }
 
+Dialog.prototype.mousemove = function (e) {
+  if (this.current_el === e.toElement)
+    return
+  this.current_el = e.toElement
+  if (e.shiftKey)
+    this.watch()
+}
+
+Dialog.prototype.keydown = function (e) {
+  var ctrl = e.ctrlKey || e.metaKey;
+  var shift = e.shiftKey;
+  if (!this.hidden() && !ctrl && e.keyCode === SHIFT_KEYCODE)
+    this.watch();
+}
+
 Dialog.prototype.handle_request = function (request, sender, sendResponse) {
-  if (request.type === "dialog_show") {
+  if (request.to !== 'dialog')
+    return
+  if (request.type === 'show') {
     this.show()
-  } else if (request.type === "dialog_hide") {
+  } else if (request.type === 'hide') {
     this.hide()
-  } else if (request.type === "dialog_toggle") {
+  } else if (request.type === 'toggle') {
     this.toggle()
   }
 }
