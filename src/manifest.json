@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+
+  "name": "Web Element Watcher",
+  "description": "A element watcher for any websites in the world.",
+  "version": "0.0.1",
+
+  "icons": {
+    "200": "icon.png"
+  },
+
+  "permissions": [
+    "contextMenus",
+    "http://*/*",
+    "https://*/*"
+  ],
+
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "content_scripts": [{
+    "matches": ["http://*/*","https://*/*"],
+    "js": ["xpath.js", "dialog.js", "content.js"],
+    "css": ["content.css"],
+    "run_at": "document_end"
+  }],
+
+  "web_accessible_resources": [
+    "dialog/*"
+  ]
+}

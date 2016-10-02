@@ -1,0 +1,42 @@
+box {
+  display      : block;
+  padding      : 0.5em 1em;
+  margin       : 0.5em;
+  background   : #fff;
+  border-radius: 0.6em;
+  box-shadow   : 1px 1px 19px 0 rgba(50, 50, 50, 0.3);
+}
+title {
+  display    : block;
+  font-weight: bold;
+  font-size  : 1.2em;
+}
+desc {
+  display  : block;
+  color    : rgba(0,0,0,0.4);
+}
+label {
+  display   : block;
+  font-size : 1.1em;
+  margin-top: 0.5em;
+  color    : rgba(0,0,0,0.9);
+}
+field {
+  display      : block;
+  background   : rgba(0,0,0,0.04);
+  border-radius: 0.2em;
+  padding      : 0.2em;
+  color        : rgba(0,0,0,0.7);
+}
+button {
+  display      : inline-block;
+  margin       : 1em 0.5em 0.5em 0;
+  border       : 1px solid rgba(0,0,0,0.5);
+  border-radius: 0.4em;
+  background   : rgba(0,0,0,0);
+  padding      : 0.2em 0.8em;
+  transition   : background 0.2s ease-in-out;
+}
+button:hover {
+  background: rgba(0,0,0,0.1);
+}

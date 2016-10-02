@@ -1,0 +1,23 @@
+.wew-highlight {
+  background-color: #fff59d !important;
+}
+
+img.wew-highlight {
+  opacity: 0.5 !important;
+}
+
+#wew-dialog
+{
+  border-width: 0 !important;
+  position: fixed;
+  right: 1em;
+  top: 1em;
+  height: 100%;
+  width: 30em;
+  z-index: 2147483647 !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+#wew-dialog.hidden {
+  transform: translate3d(0, -100%, 0) !important;
+}
