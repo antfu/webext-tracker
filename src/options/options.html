@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Element Watcher Options</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,500,700,700italic">
   <link rel="stylesheet" href="../dist/milligram.min.css">
   <link rel="stylesheet" href="../dist/style.css">
   <link rel="stylesheet" href="options.css">
@@ -25,12 +25,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="w in watchers">
+      <tr v-for="w in watchers" class="watcher" :class="{changed: w.text!=w.current}">
         <td>{{w.id}}</td>
-        <td>{{less(w.desc)}}</td>
-        <td><a @click="navigate(w)">{{less(w.url)}}</a></td>
+        <td class="desc">{{less(w.desc)}}</td>
+        <td class="url"><a @click="navigate(w)">{{less(w.url)}}</a></td>
         <td>{{less(w.text)}}</td>
-        <td>{{less(w.current)}}</td>
+        <td class="current"><div class="dot"></div> {{less(w.current)}}</td>
         <td>{{humandate(w.update_time)}}</td>
         <td class="auto right-aligned">
           <div class="button button-outline green">Refresh</div>

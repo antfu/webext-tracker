@@ -6,12 +6,10 @@ var noop = function () {}
 storage.namespace = 'sync'
 storage.space = chrome.storage[storage.namespace]
 
-storage.cache = {}
-storage.cache.urls = null
-
 storage.watchers = function (callback) {
   callback = callback || noop
   storage.space.get({watchers:[]}, function (result) {
+    storage.watchers.cache = result.watchers
     callback(result.watchers)
   })
 }
@@ -22,8 +20,7 @@ storage.watchers.urls = function (callback) {
     var urls = []
     var i = result.watchers.length
     while(i--)
-      urls.push(result.watchers[i].url)
-    storage.cache.urls = urls
+      urls.push([result.watchers[i].url, result.watchers[i].id])
     callback(urls)
   })
 }
@@ -87,10 +84,10 @@ storage.watchers.clear = function () {
   storage.space.remove('watchers')
 }
 
-storage.cache.listen = function () {
+storage.watchers.listen = function () {
   chrome.storage.onChanged.addListener(function(changes, namespace) {
     if (namespace === storage.namespace)
-      storage.watchers.urls()
+      storage.watchers()
   })
-  storage.watchers.urls()
+  storage.watchers()
 }

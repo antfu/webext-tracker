@@ -2,3 +2,33 @@
   width         : 1.4em;
   vertical-align: bottom;
 }
+tr.watcher .dot {
+  display       : inline-block;
+  opacity       : 0.2;
+  width         : 0.5em;
+  height        : 0.5em;
+  border-radius : 1em;
+  margin-bottom : 0.1em;
+  vertical-align: baseline;
+  text-align    : center;
+}
+tr.watcher .desc {
+  font-weight: 400;
+}
+tr.watcher .url a {
+  color     : rgba(0,0,0,0.35);
+  transition: color 0.15s ease-in;
+}
+tr.watcher .url a:hover {
+  color: rgba(0,0,0,0.9);
+}
+tr.watcher.changed .dot {
+  opacity   : 0.5;
+  background: #ed4c1a;
+}
+tr.watcher .current {
+  color: #468a11;
+}
+tr.watcher.changed .current {
+  color: #ed4c1a;
+}

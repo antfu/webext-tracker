@@ -1,8 +1,10 @@
 var url_el = document.getElementById('url')
 var xpath_el = document.getElementById('xpath')
 var text_el = document.getElementById('text')
+var desc_el = document.getElementById('desc')
 
-var data = null;
+var data = null
+
 var handleRequest = function (request, sender, cb) {
   if (request.to !== 'panel')
     return
@@ -20,7 +22,12 @@ document.getElementById('cancel').addEventListener('click', function () {
   chrome.runtime.sendMessage({to: 'dialog', type: 'hide'})
 })
 
+document.getElementById('options').addEventListener('click', function () {
+  chrome.runtime.sendMessage({to: 'background', type: 'options'})
+})
+
 document.getElementById('add').addEventListener('click', function () {
+  data.desc = desc_el.value
   chrome.runtime.sendMessage({
     to: 'background',
     type: 'add',

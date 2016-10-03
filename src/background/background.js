@@ -1,5 +1,5 @@
 
-storage.cache.listen()
+storage.watchers.listen()
 
 // Create one test item for each context type.
 var menu_watch_id = chrome.contextMenus.create({
@@ -26,10 +26,14 @@ function handleRequest(request, sender, cb) {
         chrome.tabs.sendMessage(sender.tab.id, {to: 'dialog', type: 'hide'})
         console.log('Add watch success', request.data)
       })
-    else if (request.type === 'urls')
-      cb(storage.cache.urls)
+    else if (request.type === 'watchers')
+      cb(storage.watchers.cache)
     else if (request.type === 'update')
       storage.watchers.edit(request.id, request.data)
+    else if (request.type === 'update_text')
+      storage.watchers.update_text(request.id, request.text)
+    else if (request.type === 'options')
+      chrome.tabs.create({'url': chrome.extension.getURL('options/options.html')})
   }
 }
 

@@ -14,6 +14,8 @@ Dialog = function () {
   this.in_dom = false
   this.current_el = null
   this.short_cut = false
+  this.url = location.href
+  this.watchers = []
 
   this.iframe = document.createElement('iframe')
   this.iframe.src = chrome.runtime.getURL('../panel/panel.html')
@@ -61,7 +63,7 @@ Dialog.prototype.watch = function(el) {
   console.log('Watch', xpath)
 
   this._data = {
-    url: location.href,
+    url: this.url,
     xpath: xpath,
     text: querys.text,
     count: querys.count
@@ -78,18 +80,14 @@ Dialog.prototype.evaluate = function(xpath) {
   xh.clearHighlights()
   var querys = xh.evaluateQuery(xpath)
 
-  this._data = {
-    url: location.href,
+  var data = {
+    url: this.url,
     xpath: xpath,
     text: querys.text,
     count: querys.count
   }
 
-  chrome.runtime.sendMessage({
-    to: 'panel',
-    type: 'update',
-    data: this._data
-  })
+  return data
 }
 
 Dialog.prototype.toggle = function () {
@@ -114,6 +112,21 @@ Dialog.prototype.keydown = function (e) {
     this.watch();
 }
 
+Dialog.prototype.check_watchers = function(){
+  var that = this
+  chrome.runtime.sendMessage({to: 'background', type: 'watchers'}, function(watchers) {
+    var i = watchers.length
+    while(i--)
+      if (watchers[i].url.trim() == that.url.trim())
+      {
+        var watcher = watchers[i]
+        that.watchers.push(watcher)
+        var data = that.evaluate(watcher.xpath)
+        chrome.runtime.sendMessage({to: 'background', type: 'update_text', id:watcher.id, text:data.text})
+      }
+  })
+}
+
 Dialog.prototype.handle_request = function (request, sender, sendResponse) {
   if (request.to !== 'dialog')
     return
@@ -123,9 +136,16 @@ Dialog.prototype.handle_request = function (request, sender, sendResponse) {
     this.hide()
   } else if (request.type === 'toggle') {
     this.toggle()
+  } else if (request.type === 'check') {
+    this.check_watchers()
   } else if (request.type === 'evaluate') {
     this.show()
-    this.evaluate(request.data.xpath)
+    this._data = this.evaluate(request.data.xpath)
+    chrome.runtime.sendMessage({
+      to: 'panel',
+      type: 'update',
+      data: this._data
+    })
   } else if (request.type === 'get') {
     chrome.runtime.sendMessage({
       to: 'panel',

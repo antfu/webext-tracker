@@ -17,7 +17,8 @@ var app = new Vue({
       chrome.tabs.create({'url': watcher.url}, function(tab) {
         console.log(tab);
         chrome.tabs.executeScript(tab.id, {
-            code: 'chrome.runtime.sendMessage({to: "dialog", type: "evaluate", data: {xpath: "'+watcher.xpath+'"}})',
+            code: 'chrome.runtime.sendMessage({to: "dialog", type: "evaluate", data: {xpath: "'+watcher.xpath+'"}});'
+                + 'chrome.runtime.sendMessage({to: "dialog", type: "check"})',
             runAt: 'document_idle'
         })
       })
