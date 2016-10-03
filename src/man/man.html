@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Element Watcher Management</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="../dist/milligram.min.css">
+  <link rel="stylesheet" href="man.css">
+</head>
+<body>
+<div class="container" id="vue-root">
+  <h3>Web Element Watcher</h3>
+
+  <h5>Watchers</h5>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Url</th>
+        <th>Saved Value</th>
+        <th>Current Value</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="w in watchers">
+        <td>{{w.id}}</td>
+        <td>{{w.url}}</td>
+        <td>{{less(w.text)}}</td>
+        <td></td>
+        <td>
+          <div class="button button-outline green">Refresh</div>
+          <div class="button button-outline blue">Edit</div>
+          <div class="button button-outline red">Remove</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="../dist/vue.min.js"></script>
+<script src="man.js"></script>
+</body>
+</html>

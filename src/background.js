@@ -1,37 +1,47 @@
-// A generic onclick callback function.
-function genericOnClick(info, tab) {
-  console.log('item ' + info.menuItemId + ' was clicked');
-  console.log('info: ' + JSON.stringify(info));
-  console.log('tab: ' + JSON.stringify(tab));
-  chrome.tabs.sendMessage(tab.id, {
-    to: 'content',
-    type: 'watch_right_clicked'
-  });
-}
 
 // Create one test item for each context type.
-var watch_menu_id = chrome.contextMenus.create({
+var menu_watch_id = chrome.contextMenus.create({
   'title': 'Watch this element',
-  'contexts': ['all'],
-  'onclick': genericOnClick
-});
+  'contexts': ['page','frame','link','selection','editable'],
+  'onclick': function(info, tab){
+    chrome.tabs.sendMessage(tab.id, {
+      to: 'content',
+      type: 'watch_right_clicked'
+    });
+  }
+})
+
+var menu_man_id = chrome.contextMenus.create({
+  'title': 'Manage watchers',
+  'contexts': ['browser_action', 'page_action'],
+  'onclick': function(info, tab){
+    chrome.tabs.create({'url': chrome.extension.getURL('man/man.html')});
+  }
+})
+
 
 function handleRequest(request, sender, cb) {
   if (request.to !== 'background')
+    // Forwarding
     chrome.tabs.sendMessage(sender.tab.id, request, cb)
   else {
     if (request.type === 'watch')
     {
-      chrome.storage.local.get({watchers:[]}, function(result) {
-        var watcheres = result.watchers
-        var data = request.data
-        data.create_time = (new Date()).toISOString()
-        watcheres.push(data)
-        chrome.storage.local.set({watchers:watcheres}, function() {
-          chrome.tabs.sendMessage(tab.id, {to: 'dialog', type: 'hide'})
-          console.log('Add watch success', data)
+      chrome.storage.sync.get({watcher_id:0}, function(id){
+        var new_id = id + 1;
+        chrome.storage.sync.get({watchers:[]}, function(result) {
+          var watcheres = result.watchers
+          var data = request.data
+          data.create_time = (new Date()).toISOString()
+          data.id = new_id
+          watcheres.push(data)
+          chrome.storage.sync.set({watchers:watcheres}, function() {
+            chrome.storage.sync.set({watcher_id:new_id}, function() {})
+            chrome.tabs.sendMessage(sender.tab.id, {to: 'dialog', type: 'hide'})
+            console.log('Add watch success', data)
+          })
         })
-      })
+      });
     }
   }
 }
