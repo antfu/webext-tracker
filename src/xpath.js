@@ -56,7 +56,7 @@ xh.getElementIndex = function(el) {
   return 0;
 };
 
-xh.makeQueryForElement = function(el) {
+xh.makeQueryForElement = function(el, simple) {
   var query = '';
   for (; el && el.nodeType === Node.ELEMENT_NODE; el = el.parentNode) {
     var component = el.tagName.toLowerCase();
@@ -64,7 +64,8 @@ xh.makeQueryForElement = function(el) {
     if (el.id) {
       component += '[@id=\'' + el.id + '\']';
     } else if (el.className) {
-      component += '[@class=\'' + el.className + '\']';
+      if (!simple)
+        component += '[@class=\'' + el.className + '\']';
     }
     if (index >= 1) {
       component += '[' + index + ']';

@@ -23,6 +23,7 @@ Dialog = function () {
   //document.addEventListener('keydown', this.boundKeyDown_)
   chrome.runtime.onMessage.addListener(this._handle_request)
   this.append()
+  this.hide()
 }
 
 Dialog.prototype.hidden = function () {

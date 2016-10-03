@@ -11,6 +11,17 @@ var menu_watch_id = chrome.contextMenus.create({
   }
 })
 
+var menu_watch_el_id = chrome.contextMenus.create({
+  'title': 'Watch element',
+  'contexts': ['page_action'],
+  'onclick': function(info, tab){
+    chrome.tabs.sendMessage(tab.id, {
+      to: 'content',
+      type: 'watch_right_clicked'
+    });
+  }
+})
+
 var menu_man_id = chrome.contextMenus.create({
   'title': 'Manage watchers',
   'contexts': ['browser_action', 'page_action'],
@@ -30,12 +41,12 @@ function handleRequest(request, sender, cb) {
       chrome.storage.sync.get({watcher_id:0}, function(id_obj){
         var new_id = id_obj.watcher_id + 1;
         chrome.storage.sync.get({watchers:[]}, function(result) {
-          var watcheres = result.watchers
+          var watchers = result.watchers
           var data = request.data
           data.create_time = (new Date()).toISOString()
           data.id = new_id
-          watcheres.push(data)
-          chrome.storage.sync.set({watchers:watcheres}, function() {
+          watchers.push(data)
+          chrome.storage.sync.set({watchers:watchers}, function() {
             chrome.storage.sync.set({watcher_id:new_id}, function() {})
             chrome.tabs.sendMessage(sender.tab.id, {to: 'dialog', type: 'hide'})
             console.log('Add watch success', data)

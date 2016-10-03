@@ -1,3 +1,7 @@
+body{
+  font-family: sans-serif;
+  font-size: 1.2em;
+}
 html {
   opacity: 0.95;
 }
@@ -33,15 +37,8 @@ field {
   padding      : 0 0.3em 0.1em;
   color        : rgba(0,0,0,0.7);
 }
-button {
-  display      : inline-block;
-  margin       : 1em 0.5em 0.5em 0;
-  border       : 1px solid rgba(0,0,0,0.5);
-  border-radius: 0.4em;
-  background   : rgba(0,0,0,0);
-  padding      : 0.2em 1em 0.1em;
-  transition   : background 0.2s ease-in-out;
-}
-button:hover {
-  background: rgba(0,0,0,0.1);
+.button
+{
+  margin: 1em 0.3em 0.6em 0;
+  padding-bottom: 0.1em;
 }

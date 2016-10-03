@@ -21,6 +21,30 @@ var app = new Vue({
             runAt: 'document_idle'
         })
       })
+    },
+    remove: function(watcher) {
+      if (confirm("Are your sure to remove this watcher?"))
+      {
+        chrome.storage.sync.get({watchers:[]}, function(result) {
+          var watchers = result.watchers
+          var i = watchers.length
+          while(i--)
+          {
+            if (watchers[i].id == watcher.id)
+            {
+              watchers.splice(i,1)
+              chrome.storage.sync.set({watchers:watchers}, function() {})
+              break;
+            }
+          }
+        })
+      }
+    },
+    remove_all: function() {
+      if (confirm("Are your sure to remove all watchers?"))
+      {
+        chrome.storage.sync.clear();
+      }
     }
   }
 })

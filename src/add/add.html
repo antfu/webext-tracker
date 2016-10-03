@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="../dist/milligram.min.css">
+  <link rel="stylesheet" href="../dist/style.css">
   <link rel="stylesheet" href="add.css">
 </head>
 <body>
   <box>
     <title>Add Element Watcher</title>
-    <desc>You can use <field>Shift</field> to select element<desc>
+    <desc>You can use <field>Shift</field> to select element</desc>
 
     <label>Url:</label>
     <field id="url"> </field>
@@ -15,8 +17,8 @@
     <label>Text:</label>
     <field id="text"> </field>
     <br>
-    <button id="watch">Watch</button>
-    <button id="cancel">Cancel</button>
+    <div class="button button-outline green" id="watch">Watch</div>
+    <div class="button button-outline orange" id="cancel">Cancel</div>
   </box>
 
   <script src="add.js"></script>

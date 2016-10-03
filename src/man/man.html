@@ -4,6 +4,7 @@
   <title>Element Watcher Management</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
   <link rel="stylesheet" href="../dist/milligram.min.css">
+  <link rel="stylesheet" href="../dist/style.css">
   <link rel="stylesheet" href="man.css">
 </head>
 <body>
@@ -32,14 +33,17 @@
         <td class="right-aligned">
           <div class="button button-outline green">Refresh</div>
           <div class="button button-outline blue">Edit</div>
-          <div class="button button-outline red">Remove</div>
+          <div class="button button-outline red" @click="remove(w)">Remove</div>
         </td>
+      </tr>
+      <tr v-if="!watchers.length" style="font-style: italic; opacity: 0.5;">
+        <td></td><td>No watcher</td><td></td><td></td><td></td><td></td>
       </tr>
     </tbody>
   </table>
   <div class="right-aligned">
     <div class="button button-outline green">Refresh All</div>
-    <div class="button button-outline red">Remove All</div>
+    <div class="button button-outline red" @click="remove_all()">Remove All</div>
   </div>
 </div>
 
