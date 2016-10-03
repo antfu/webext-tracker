@@ -18,22 +18,23 @@
         <th>ID</th>
         <th>Description</th>
         <th>Url</th>
-        <th>Saved value</th>
-        <th>Current value</th>
+        <th>Value</th>
         <th>Last update</th>
         <th class="right-aligned">Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="w in watchers" class="watcher" :class="{changed: w.text!=w.current}">
-        <td>{{w.id}}</td>
-        <td class="desc">{{less(w.desc)}}</td>
-        <td class="url"><a @click="navigate(w)">{{less(w.url)}}</a></td>
-        <td>{{less(w.text)}}</td>
-        <td class="current"><div class="dot"></div> {{less(w.current)}}</td>
+        <td style="width:2em;">{{w.id}}</td>
+        <td class="desc">{{w.desc}}</td>
+        <td style="max-width:13em;" class="url"><a @click="navigate(w)">{{less(w.url)}}</a></td>
+        <td class="current">
+          <div v-if="w.text!=w.current" class="orginal">{{w.text}}</div>
+          <span>{{less(w.current)}}<span>
+        </td>
         <td>{{humandate(w.update_time)}}</td>
         <td class="auto right-aligned">
-          <div class="button button-outline green">Refresh</div>
+          <div class="button button-outline green" @click="refresh(w)">Refresh</div>
           <div class="button button-outline blue">Edit</div>
           <div class="button button-outline red" @click="remove(w)">Remove</div>
         </td>
@@ -44,7 +45,7 @@
     </tbody>
   </table>
   <div class="right-aligned">
-    <div class="button button-outline green">Refresh All</div>
+    <div class="button button-outline green" @click="refresh_all()">Refresh All</div>
     <div v-if="false" class="button button-outline red" @click="remove_all()">Remove All</div>
   </div>
 

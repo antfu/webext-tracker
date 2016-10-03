@@ -31,7 +31,11 @@ function handleRequest(request, sender, cb) {
     else if (request.type === 'update')
       storage.watchers.edit(request.id, request.data)
     else if (request.type === 'update_text')
+    {
       storage.watchers.update_text(request.id, request.text)
+      if (request.close)
+        chrome.tabs.remove(sender.tab.id)
+    }
     else if (request.type === 'options')
       chrome.tabs.create({'url': chrome.extension.getURL('options/options.html')})
   }

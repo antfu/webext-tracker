@@ -112,7 +112,7 @@ Dialog.prototype.keydown = function (e) {
     this.watch();
 }
 
-Dialog.prototype.check_watchers = function(){
+Dialog.prototype.check_watchers = function(close){
   var that = this
   chrome.runtime.sendMessage({to: 'background', type: 'watchers'}, function(watchers) {
     var i = watchers.length
@@ -122,7 +122,7 @@ Dialog.prototype.check_watchers = function(){
         var watcher = watchers[i]
         that.watchers.push(watcher)
         var data = that.evaluate(watcher.xpath)
-        chrome.runtime.sendMessage({to: 'background', type: 'update_text', id:watcher.id, text:data.text})
+        chrome.runtime.sendMessage({to: 'background', type: 'update_text', close:close, id:watcher.id, text:data.text})
       }
   })
 }
@@ -137,7 +137,7 @@ Dialog.prototype.handle_request = function (request, sender, sendResponse) {
   } else if (request.type === 'toggle') {
     this.toggle()
   } else if (request.type === 'check') {
-    this.check_watchers()
+    this.check_watchers(request.close)
   } else if (request.type === 'evaluate') {
     this.show()
     this._data = this.evaluate(request.data.xpath)

@@ -2,6 +2,14 @@
   width         : 1.4em;
   vertical-align: bottom;
 }
+tr.watcher td,
+tr.watcher td div,
+tr.watcher td span {
+  max-width    : 30em;
+  white-space  : nowrap;
+  overflow     : hidden;
+  text-overflow: ellipsis;
+}
 tr.watcher .dot {
   display       : inline-block;
   opacity       : 0.2;
@@ -16,7 +24,7 @@ tr.watcher .desc {
   font-weight: 400;
 }
 tr.watcher .url a {
-  color     : rgba(0,0,0,0.35);
+  color     : rgba(0,0,0,0.7);
   transition: color 0.15s ease-in;
 }
 tr.watcher .url a:hover {
@@ -31,4 +39,10 @@ tr.watcher .current {
 }
 tr.watcher.changed .current {
   color: #ed4c1a;
+}
+tr.watcher .orginal {
+  margin-top   : -0.1em;
+  margin-bottom: -0.4em;
+  color        : rgba(0,0,0,0.3);
+  font-size    : 0.8em;
 }

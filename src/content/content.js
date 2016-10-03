@@ -16,3 +16,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     dialog.watch();
   }
 });
+
+function WATCHER_CHECK(xpath, close_after_finished) {
+  chrome.runtime.sendMessage({to: "dialog", type: "evaluate", data: {xpath: xpath}})
+  chrome.runtime.sendMessage({to: "dialog", type: "check", close: close_after_finished})
+}

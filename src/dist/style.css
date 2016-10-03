@@ -8,6 +8,7 @@ a:hover {
 .container {
   margin-top  : 1em;
   display     : block;
+  width: 100%;
   max-width   : 1400px;
   margin-right: auto;
   margin-left : auto;
@@ -53,5 +54,5 @@ select {
   margin-bottom: 0;
 }
 td, th {
-  padding: 1.2rem 0.2rem;
+  padding: 1.2rem 0.8rem;
 }

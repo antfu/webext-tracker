@@ -6,7 +6,7 @@ var app = new Vue({
   },
   methods: {
     less: function(data, length) {
-      length = length || 30
+      length = length || 100
       var str = (data || '').toString().trim()
       if (str.length <= length)
         return str
@@ -17,11 +17,24 @@ var app = new Vue({
       chrome.tabs.create({'url': watcher.url}, function(tab) {
         console.log(tab);
         chrome.tabs.executeScript(tab.id, {
-            code: 'chrome.runtime.sendMessage({to: "dialog", type: "evaluate", data: {xpath: "'+watcher.xpath+'"}});'
-                + 'chrome.runtime.sendMessage({to: "dialog", type: "check"})',
+            code: 'WATCHER_CHECK("'+watcher.xpath+'");',
             runAt: 'document_idle'
         })
       })
+    },
+    refresh: function(watcher) {
+      chrome.tabs.create({url: watcher.url, pinned:true, active:false}, function(tab) {
+        console.log(tab);
+        chrome.tabs.executeScript(tab.id, {
+            code: 'WATCHER_CHECK("'+watcher.xpath+'", true);',
+            runAt: 'document_idle'
+        })
+      })
+    },
+    refresh_all: function() {
+      var i = this.watchers.length
+      while(i--)
+        this.refresh(this.watchers[i])
     },
     remove: function(watcher) {
       if (confirm("Are your sure to remove this watcher?"))
