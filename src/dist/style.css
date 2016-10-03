@@ -30,7 +30,7 @@ a:hover {
   color       : rgb(242, 93, 73) !important;
   border-color: rgb(242, 93, 73);
 }
-.button.red:hover {
+.button.orange:hover {
   color       : rgb(242, 169, 73) !important;
   border-color: rgb(242, 169, 73);
 }
@@ -40,4 +40,12 @@ a:hover {
 }
 .right-aligned {
   text-align: right;
+}
+input {
+  height       : 3rem !important;
+  padding      : 0.4rem 0.8rem;
+  margin-bottom: 0;
+}
+table {
+  margin-bottom: 0.3em;
 }

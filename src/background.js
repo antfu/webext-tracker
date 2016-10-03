@@ -33,8 +33,11 @@ var menu_man_id = chrome.contextMenus.create({
 
 function handleRequest(request, sender, cb) {
   if (request.to !== 'background')
+  {
+    console.log('Message to '+sender.tab.id, request)
     // Forwarding
     chrome.tabs.sendMessage(sender.tab.id, request, cb)
+  }
   else {
     if (request.type === 'watch')
     {

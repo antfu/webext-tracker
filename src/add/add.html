@@ -10,15 +10,16 @@
     <title>Add Element Watcher</title>
     <desc>You can use <field>Shift</field> to select element</desc>
 
-    <label>Url:</label>
-    <field id="url"> </field>
-    <label>XPath:</label>
-    <field id="xpath"> </field>
-    <label>Text:</label>
-    <field id="text"> </field>
-    <br>
-    <div class="button button-outline green" id="watch">Watch</div>
-    <div class="button button-outline orange" id="cancel">Cancel</div>
+    <table>
+      <tr><th>Desc</th><td><input type="text" placeholder="Description" id="desc"></td></tr>
+      <tr><th>Url</th><td><field id="url"> </field></td></tr>
+      <tr><th>XPath</th><td><field id="xpath"> </field></td></tr>
+      <tr><th>Text</th><td><field id="text"> </field></td></tr>
+    </table>
+    <div class="right-aligned">
+      <div class="button button-outline green" id="watch">Add</div>
+      <div class="button button-outline orange" id="cancel">Cancel</div>
+    </div>
   </box>
 
   <script src="add.js"></script>

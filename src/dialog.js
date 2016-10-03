@@ -22,8 +22,8 @@ Dialog = function () {
 
   //document.addEventListener('keydown', this.boundKeyDown_)
   chrome.runtime.onMessage.addListener(this._handle_request)
-  this.append()
-  this.hide()
+  //this.append()
+  //this.hide()
 }
 
 Dialog.prototype.hidden = function () {
@@ -53,35 +53,41 @@ Dialog.prototype.hide = function () {
 
 Dialog.prototype.watch = function(el) {
   el = el || this.current_el
-  this.current_el = el
   xh.clearHighlights()
   var xpath = xh.makeQueryForElement(el)
   var querys = xh.evaluateQuery(xpath)
 
+  console.log('Watch', xpath)
+
+  this._data = {
+    url: location.href,
+    xpath: xpath,
+    text: querys.text,
+    count: querys.count
+  }
+
   chrome.runtime.sendMessage({
     to: 'adding',
     type: 'update',
-    data: {
-      url: location.href,
-      xpath: xpath,
-      text: querys.text,
-      count: querys.count
-    }
+    data: this._data
   })
 }
 
 Dialog.prototype.evaluate = function(xpath) {
   xh.clearHighlights()
   var querys = xh.evaluateQuery(xpath)
+
+  this._data = {
+    url: location.href,
+    xpath: xpath,
+    text: querys.text,
+    count: querys.count
+  }
+
   chrome.runtime.sendMessage({
     to: 'adding',
     type: 'update',
-    data: {
-      url: location.href,
-      xpath: xpath,
-      text: querys.text,
-      count: querys.count
-    }
+    data: this._data
   })
 }
 
@@ -93,7 +99,7 @@ Dialog.prototype.toggle = function () {
 }
 
 Dialog.prototype.mousemove = function (e) {
-  if (this.current_el === e.toElement)
+  if (this.current_el === e.toElement || !e.toElement)
     return
   this.current_el = e.toElement
   if (e.shiftKey)
@@ -119,5 +125,11 @@ Dialog.prototype.handle_request = function (request, sender, sendResponse) {
   } else if (request.type === 'evaluate') {
     this.show()
     this.evaluate(request.data.xpath)
+  } else if (request.type === 'get') {
+    chrome.runtime.sendMessage({
+      to: 'adding',
+      type: 'update',
+      data: this._data
+    })
   }
 }

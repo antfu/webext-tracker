@@ -18,7 +18,7 @@ chrome.runtime.onMessage.addListener(handleRequest)
 
 document.getElementById('cancel').addEventListener('click', function () {
   chrome.runtime.sendMessage({to: 'dialog', type: 'hide'})
-});
+})
 
 document.getElementById('watch').addEventListener('click', function () {
   chrome.runtime.sendMessage({
@@ -26,4 +26,11 @@ document.getElementById('watch').addEventListener('click', function () {
     type: 'watch',
     data: data
   })
-});
+})
+
+document.addEventListener('DOMContentLoaded', function() {
+  chrome.runtime.sendMessage({
+    to: 'dialog',
+    type: 'get'
+  })
+})

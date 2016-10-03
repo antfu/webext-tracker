@@ -1,6 +1,6 @@
-body{
+body {
   font-family: sans-serif;
-  font-size: 1.2em;
+  font-size  : 1.2em;
 }
 html {
   opacity: 0.95;
@@ -16,18 +16,11 @@ box {
 title {
   display    : block;
   font-weight: bold;
-  font-size  : 1.2em;
+  font-size  : 1.4em;
 }
 desc {
   display: block;
   color  : rgba(0,0,0,0.4);
-}
-label {
-  font-weight: bold;
-  display   : block;
-  font-size : 1em;
-  margin-top: 0.5em;
-  color     : rgba(0,0,0,0.9);
 }
 field {
   display      : inline-block;
@@ -37,8 +30,7 @@ field {
   padding      : 0 0.3em 0.1em;
   color        : rgba(0,0,0,0.7);
 }
-.button
-{
-  margin: 1em 0.3em 0.6em 0;
+.button {
+  margin        : 1em 0.3em 0.6em 0;
   padding-bottom: 0.1em;
 }
