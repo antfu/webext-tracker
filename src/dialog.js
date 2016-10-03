@@ -22,6 +22,7 @@ Dialog = function () {
 
   //document.addEventListener('keydown', this.boundKeyDown_)
   chrome.runtime.onMessage.addListener(this._handle_request)
+  this.append()
 }
 
 Dialog.prototype.hidden = function () {
@@ -51,6 +52,7 @@ Dialog.prototype.hide = function () {
 
 Dialog.prototype.watch = function(el) {
   el = el || this.current_el
+  this.current_el = el
   xh.clearHighlights()
   var xpath = xh.makeQueryForElement(el)
   var querys = xh.evaluateQuery(xpath)
@@ -62,7 +64,22 @@ Dialog.prototype.watch = function(el) {
       url: location.href,
       xpath: xpath,
       text: querys.text,
-      els: querys.els,
+      count: querys.count
+    }
+  })
+}
+
+Dialog.prototype.evaluate = function(xpath) {
+  xh.clearHighlights()
+  var querys = xh.evaluateQuery(xpath)
+  console.log('evaluate', querys)
+  chrome.runtime.sendMessage({
+    to: 'adding',
+    type: 'update',
+    data: {
+      url: location.href,
+      xpath: xpath,
+      text: querys.text,
       count: querys.count
     }
   })
@@ -99,5 +116,8 @@ Dialog.prototype.handle_request = function (request, sender, sendResponse) {
     this.hide()
   } else if (request.type === 'toggle') {
     this.toggle()
+  } else if (request.type === 'evaluate') {
+    this.show()
+    this.evaluate(request.data.xpath)
   }
 }

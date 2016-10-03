@@ -8,13 +8,14 @@
 </head>
 <body>
 <div class="container" id="vue-root">
-  <h3>Web Element Watcher</h3>
+  <h3><img id="logo" src="../icon.png"/> Web Element Watcher</h3>
 
   <h5>Watchers</h5>
   <table>
     <thead>
       <tr>
-        <th>Id</th>
+        <th>ID</th>
+        <th>Description</th>
         <th>Url</th>
         <th>Saved Value</th>
         <th>Current Value</th>
@@ -24,10 +25,11 @@
     <tbody>
       <tr v-for="w in watchers">
         <td>{{w.id}}</td>
-        <td>{{w.url}}</td>
+        <td>{{less(w.desc)}}</td>
+        <td><a @click="navigate(w)">{{less(w.url)}}</a></td>
         <td>{{less(w.text)}}</td>
-        <td></td>
-        <td>
+        <td>{{less(w.text)}}</td>
+        <td class="right-aligned">
           <div class="button button-outline green">Refresh</div>
           <div class="button button-outline blue">Edit</div>
           <div class="button button-outline red">Remove</div>
@@ -35,6 +37,10 @@
       </tr>
     </tbody>
   </table>
+  <div class="right-aligned">
+    <div class="button button-outline green">Refresh All</div>
+    <div class="button button-outline red">Remove All</div>
+  </div>
 </div>
 
 <script src="../dist/vue.min.js"></script>

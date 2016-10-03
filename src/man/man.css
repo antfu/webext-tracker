@@ -1,7 +1,14 @@
+a {
+  color : grey;
+  cursor: pointer;
+}
+a:hover {
+  border-bottom: 1px solid grey;
+}
 .container {
   margin-top  : 1em;
   display     : block;
-  max-width   : 1004px;
+  max-width   : 1400px;
   margin-right: auto;
   margin-left : auto;
 }
@@ -26,4 +33,11 @@
 .button.blue:hover {
   color       : rgb(63, 125, 198) !important;
   border-color: rgb(63, 125, 198);
+}
+.right-aligned {
+  text-align: right;
+}
+#logo {
+  width         : 1.4em;
+  vertical-align: bottom;
 }

@@ -27,8 +27,8 @@ function handleRequest(request, sender, cb) {
   else {
     if (request.type === 'watch')
     {
-      chrome.storage.sync.get({watcher_id:0}, function(id){
-        var new_id = id + 1;
+      chrome.storage.sync.get({watcher_id:0}, function(id_obj){
+        var new_id = id_obj.watcher_id + 1;
         chrome.storage.sync.get({watchers:[]}, function(result) {
           var watcheres = result.watchers
           var data = request.data
