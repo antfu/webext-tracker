@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container" id="vue-root">
-  <h3><img id="logo" src="../icon.png"/> Web Element Watcher</h3>
+  <h3><img id="logo" src="../icons/icon.png"/> Web Element Watcher</h3>
 
   <h5>Watchers</h5>
   <table>
@@ -18,9 +18,10 @@
         <th>ID</th>
         <th>Description</th>
         <th>Url</th>
-        <th>Saved Value</th>
-        <th>Current Value</th>
-        <th>Actions</th>
+        <th>Saved value</th>
+        <th>Current value</th>
+        <th>Last update</th>
+        <th class="right-aligned">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -29,8 +30,9 @@
         <td>{{less(w.desc)}}</td>
         <td><a @click="navigate(w)">{{less(w.url)}}</a></td>
         <td>{{less(w.text)}}</td>
-        <td>{{less(w.text)}}</td>
-        <td class="right-aligned">
+        <td>{{less(w.current)}}</td>
+        <td>{{humandate(w.update_time)}}</td>
+        <td class="auto right-aligned">
           <div class="button button-outline green">Refresh</div>
           <div class="button button-outline blue">Edit</div>
           <div class="button button-outline red" @click="remove(w)">Remove</div>
@@ -63,7 +65,9 @@
   </table>
 </div>
 
+<script src="../utils/storage.js"></script>
 <script src="../dist/vue.min.js"></script>
+<script src="../dist/moment.min.js"></script>
 <script src="options.js"></script>
 </body>
 </html>

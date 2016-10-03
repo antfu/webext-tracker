@@ -24,34 +24,21 @@ var app = new Vue({
     },
     remove: function(watcher) {
       if (confirm("Are your sure to remove this watcher?"))
-      {
-        chrome.storage.sync.get({watchers:[]}, function(result) {
-          var watchers = result.watchers
-          var i = watchers.length
-          while(i--)
-          {
-            if (watchers[i].id == watcher.id)
-            {
-              watchers.splice(i,1)
-              chrome.storage.sync.set({watchers:watchers}, function() {})
-              break;
-            }
-          }
-        })
-      }
+        storage.watchers.remove(watcher.id)
     },
     remove_all: function() {
       if (confirm("Are your sure to remove all watchers?"))
-      {
-        chrome.storage.sync.clear();
-      }
+      storage.watchers.clear()
+    },
+    humandate: function(datastr) {
+      return moment(datastr || '').fromNow()
     }
   }
 })
 
 function get_watchers() {
-  chrome.storage.sync.get('watchers', function(data) {
-    app.watchers = data.watchers
+  storage.watchers(function(data) {
+    app.watchers = data || []
   })
 }
 

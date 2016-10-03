@@ -8,7 +8,7 @@
   "options_page": "options/options.html",
 
   "icons": {
-    "200": "icon.png"
+    "200": "icons/icon.png"
   },
 
   "commands": {
@@ -28,22 +28,24 @@
   ],
 
   "browser_action": {
-    "default_icon": "icon.png"
+    "default_icon": "icons/icon.png"
   },
 
   "background": {
-    "scripts": ["background.js"]
+    "page": "background/background.html"
   },
 
   "content_scripts": [{
     "matches": ["http://*/*","https://*/*"],
-    "js": ["xpath.js", "dialog.js", "content.js"],
-    "css": ["content.css"],
+    "js": ["utils/xpath.js", "content/dialog.js", "content/content.js"],
+    "css": ["content/content.css"],
     "run_at": "document_end"
   }],
 
   "web_accessible_resources": [
-    "add/*",
+    "panel/*",
+    "content/*",
+    "background/*",
     "options/*",
     "dist/*"
   ]

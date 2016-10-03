@@ -4,7 +4,7 @@ var text_el = document.getElementById('text')
 
 var data = null;
 var handleRequest = function (request, sender, cb) {
-  if (request.to !== 'adding')
+  if (request.to !== 'panel')
     return
   if (request.type === 'update') {
     data = request.data;
@@ -20,10 +20,10 @@ document.getElementById('cancel').addEventListener('click', function () {
   chrome.runtime.sendMessage({to: 'dialog', type: 'hide'})
 })
 
-document.getElementById('watch').addEventListener('click', function () {
+document.getElementById('add').addEventListener('click', function () {
   chrome.runtime.sendMessage({
     to: 'background',
-    type: 'watch',
+    type: 'add',
     data: data
   })
 })

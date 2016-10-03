@@ -41,6 +41,9 @@ a:hover {
 .right-aligned {
   text-align: right;
 }
+.auto {
+  width:auto;
+}
 input {
   height       : 3rem !important;
   padding      : 0.4rem 0.8rem;
@@ -48,4 +51,7 @@ input {
 }
 select {
   margin-bottom: 0;
+}
+td, th {
+  padding: 1.2rem 0.2rem;
 }

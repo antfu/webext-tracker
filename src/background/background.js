@@ -1,4 +1,6 @@
 
+storage.cache.listen()
+
 // Create one test item for each context type.
 var menu_watch_id = chrome.contextMenus.create({
   'title': 'Watch this element',
@@ -19,24 +21,15 @@ function handleRequest(request, sender, cb) {
     chrome.tabs.sendMessage(sender.tab.id, request, cb)
   }
   else {
-    if (request.type === 'watch')
-    {
-      chrome.storage.sync.get({watcher_id:0}, function(id_obj){
-        var new_id = id_obj.watcher_id + 1;
-        chrome.storage.sync.get({watchers:[]}, function(result) {
-          var watchers = result.watchers
-          var data = request.data
-          data.create_time = (new Date()).toISOString()
-          data.id = new_id
-          watchers.push(data)
-          chrome.storage.sync.set({watchers:watchers}, function() {
-            chrome.storage.sync.set({watcher_id:new_id}, function() {})
-            chrome.tabs.sendMessage(sender.tab.id, {to: 'dialog', type: 'hide'})
-            console.log('Add watch success', data)
-          })
-        })
-      });
-    }
+    if (request.type === 'add')
+      storage.watchers.add(request.data, function() {
+        chrome.tabs.sendMessage(sender.tab.id, {to: 'dialog', type: 'hide'})
+        console.log('Add watch success', request.data)
+      })
+    else if (request.type === 'urls')
+      cb(storage.cache.urls)
+    else if (request.type === 'update')
+      storage.watchers.edit(request.id, request.data)
   }
 }
 

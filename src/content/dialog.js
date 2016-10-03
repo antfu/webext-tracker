@@ -13,9 +13,10 @@ Dialog = function () {
   */
   this.in_dom = false
   this.current_el = null
+  this.short_cut = false
 
   this.iframe = document.createElement('iframe')
-  this.iframe.src = chrome.runtime.getURL('add/add.html')
+  this.iframe.src = chrome.runtime.getURL('../panel/panel.html')
   this.iframe.id = 'wew-dialog'
     // Init to hidden so first showBar_() triggers fade-in.
   this.iframe.classList.add('hidden')
@@ -67,7 +68,7 @@ Dialog.prototype.watch = function(el) {
   }
 
   chrome.runtime.sendMessage({
-    to: 'adding',
+    to: 'panel',
     type: 'update',
     data: this._data
   })
@@ -85,7 +86,7 @@ Dialog.prototype.evaluate = function(xpath) {
   }
 
   chrome.runtime.sendMessage({
-    to: 'adding',
+    to: 'panel',
     type: 'update',
     data: this._data
   })
@@ -127,7 +128,7 @@ Dialog.prototype.handle_request = function (request, sender, sendResponse) {
     this.evaluate(request.data.xpath)
   } else if (request.type === 'get') {
     chrome.runtime.sendMessage({
-      to: 'adding',
+      to: 'panel',
       type: 'update',
       data: this._data
     })
