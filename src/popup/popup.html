@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,500,700,700italic">
+  <link rel="stylesheet" href="../dist/milligram.min.css">
+  <link rel="stylesheet" href="../dist/material-icons/material-icons.css">
+  <link rel="stylesheet" href="../dist/style.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body style="min-width:25em;">
+<div class="container" id="vue-root">
+  <h4><img id="logo" src="../icons/icon.png"/> Element Watcher</h4>
+  <div class="right-toolbar">
+    <i class="material-icons" id="add">add</i>
+    <i class="material-icons" id="refresh">refresh</i>
+    <i class="material-icons" id="options">settings</i>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Update</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="w in watchers" class="watcher" :class="{changed: w.text!=w.current}">
+        <td class="desc"><a @click="navigate(w)">{{w.desc}}</a></td>
+        <td class="current">
+          <span v-if="w.text!=w.current">Changed</span>
+          <span v-else>No changes<span>
+        </td>
+        <td>{{humandate(w.update_time)}}</td>
+      </tr>
+      <tr v-if="!watchers.length" style="font-style: italic; opacity: 0.5;">
+        <td>No watcher</td><td></td><td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="../utils/storage.js"></script>
+<script src="../dist/vue.min.js"></script>
+<script src="../dist/moment.min.js"></script>
+<script src="../utils/mixin.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

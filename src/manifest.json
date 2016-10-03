@@ -29,7 +29,8 @@
   ],
 
   "browser_action": {
-    "default_icon": "icons/icon.png"
+    "default_icon": "icons/icon.png",
+    "default_popup": "popup/popup.html"
   },
 
   "background": {
@@ -48,6 +49,7 @@
     "content/*",
     "background/*",
     "options/*",
-    "dist/*"
+    "dist/*",
+    "popup/*"
   ]
 }

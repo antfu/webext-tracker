@@ -1,3 +1,7 @@
+#logo {
+  width         : 1.4em;
+  vertical-align: bottom;
+}
 a {
   color : grey;
   cursor: pointer;
@@ -8,7 +12,6 @@ a:hover {
 .container {
   margin-top  : 1em;
   display     : block;
-  width: 100%;
   max-width   : 1400px;
   margin-right: auto;
   margin-left : auto;
@@ -43,7 +46,7 @@ a:hover {
   text-align: right;
 }
 .auto {
-  width:auto;
+  width: auto;
 }
 input {
   height       : 3rem !important;
@@ -53,6 +56,70 @@ input {
 select {
   margin-bottom: 0;
 }
-td, th {
+h4 {
+  margin-bottom: 0.5em;
+}
+td,
+th {
   padding: 1.2rem 0.8rem;
+}
+tr.watcher td,
+tr.watcher td div,
+tr.watcher td span {
+  max-width    : 30em;
+  white-space  : nowrap;
+  overflow     : hidden;
+  text-overflow: ellipsis;
+}
+tr.watcher .dot {
+  display       : inline-block;
+  opacity       : 0.2;
+  width         : 0.5em;
+  height        : 0.5em;
+  border-radius : 1em;
+  margin-bottom : 0.1em;
+  vertical-align: baseline;
+  text-align    : center;
+}
+tr.watcher .desc {
+  font-weight: 400;
+}
+tr.watcher .url a {
+  color     : rgba(0,0,0,0.7);
+  transition: color 0.15s ease-in;
+}
+tr.watcher .url a:hover {
+  color: rgba(0,0,0,0.9);
+}
+tr.watcher.changed .dot {
+  opacity   : 0.5;
+  background: #ed4c1a;
+}
+tr.watcher .current {
+  color: #468a11;
+}
+tr.watcher.changed .current {
+  color      : #ed4c1a;
+  font-weight: 400;
+}
+tr.watcher .orginal {
+  margin-top   : -0.1em;
+  margin-bottom: -0.4em;
+  color        : rgba(0,0,0,0.3);
+  font-size    : 0.8em;
+}
+.right-toolbar {
+  z-index: 100000;
+  position: absolute;
+  top     : 0.3em;
+  right   : 0.5em;
+}
+.right-toolbar i {
+  margin-left: 0.3em;
+  opacity    : 0.4;
+  cursor     : pointer;
+  transition : opacity 0.15s ease-in;
+}
+.right-toolbar i:hover {
+  opacity: 0.7;
 }

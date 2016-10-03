@@ -5,7 +5,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,500,700,700italic">
   <link rel="stylesheet" href="../dist/milligram.min.css">
   <link rel="stylesheet" href="../dist/style.css">
-  <link rel="stylesheet" href="options.css">
 </head>
 <body>
 <div class="container" id="vue-root">
@@ -49,11 +48,11 @@
     <div v-if="false" class="button button-outline red" @click="remove_all()">Remove All</div>
   </div>
 
-  <h5>Options</h5>
-  <table>
-    <tr><th>Checking Frequence</th><td>
+  <h5 style="opacity:0.4">Options</h5>
+  <table style="opacity:0.4">
+    <tr><td>Checking Frequence</td><td>
       <span>Every</span>
-      <select>
+      <select disabled>
         <option selected>15 min</option>
         <option>1 hour</option>
         <option>12 hours</option>
@@ -69,6 +68,7 @@
 <script src="../utils/storage.js"></script>
 <script src="../dist/vue.min.js"></script>
 <script src="../dist/moment.min.js"></script>
+<script src="../utils/mixin.js"></script>
 <script src="options.js"></script>
 </body>
 </html>
