@@ -73,7 +73,6 @@ Dialog.prototype.watch = function(el) {
 Dialog.prototype.evaluate = function(xpath) {
   xh.clearHighlights()
   var querys = xh.evaluateQuery(xpath)
-  console.log('evaluate', querys)
   chrome.runtime.sendMessage({
     to: 'adding',
     type: 'update',

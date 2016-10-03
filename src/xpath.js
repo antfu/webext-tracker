@@ -56,16 +56,73 @@ xh.getElementIndex = function(el) {
   return 0;
 };
 
-xh.makeQueryForElement = function(el, simple) {
+xh.toArray = function(obj) {
+    var l = obj.length, i, j=0, out = [];
+    for(i=0; i<l; i++)
+    {
+      if (obj[i] && obj[i].nodeType === Node.ELEMENT_NODE)
+      {
+        out[j] = obj[i];
+        j++;
+      }
+    }
+    return out;
+};
+
+xh.brothers = function(el) {
+  var brothers = xh.toArray(el.parentNode.childNodes);
+  var el_index = brothers.indexOf(el);
+  if (el_index > -1)
+    brothers.splice(el_index, 1);
+  return brothers;
+};
+
+xh.hasBrothersWithSameTag = function(el) {
+  var brothers = xh.brothers(el);
+  var tag = el.tagName.toLowerCase();
+  var i = brothers.length;
+  while (i--)
+    if (brothers[i].tagName.toLowerCase() == tag)
+      return true;
+  return false;
+};
+
+xh.getUniqueClass = function(el) {
+  var brothers = xh.brothers(el);
+  var el_classes = el.className.split(' ');
+  var bro_classes = [];
+  var i = brothers.length;
+  while(i--)
+  {
+    var b = brothers[i];
+    var classes = (b.className + '').split(' ');
+    var j = classes.length;
+    while (j--)
+      if (bro_classes.indexOf(classes[j]) === -1)
+        bro_classes.push(classes[j]);
+  }
+
+  var eli = el_classes.length;
+  while (eli--)
+  {
+    if (bro_classes.indexOf(el_classes[eli]) == -1)
+      return [el_classes[eli]]
+  }
+  return el_classes;
+}
+
+xh.makeQueryForElement = function(el) {
   var query = '';
   for (; el && el.nodeType === Node.ELEMENT_NODE; el = el.parentNode) {
     var component = el.tagName.toLowerCase();
     var index = xh.getElementIndex(el);
-    if (el.id) {
-      component += '[@id=\'' + el.id + '\']';
-    } else if (el.className) {
-      if (!simple)
+    if (xh.hasBrothersWithSameTag(el))
+    {
+      if (el.id) {
+        component += '[@id=\'' + el.id + '\']';
+      } else if (el.className) {
         component += '[@class=\'' + el.className + '\']';
+      }
     }
     if (index >= 1) {
       component += '[' + index + ']';
