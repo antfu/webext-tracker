@@ -11,26 +11,6 @@ var menu_watch_id = chrome.contextMenus.create({
   }
 })
 
-var menu_watch_el_id = chrome.contextMenus.create({
-  'title': 'Watch element',
-  'contexts': ['page_action'],
-  'onclick': function(info, tab){
-    chrome.tabs.sendMessage(tab.id, {
-      to: 'content',
-      type: 'watch_right_clicked'
-    });
-  }
-})
-
-var menu_man_id = chrome.contextMenus.create({
-  'title': 'Manage watchers',
-  'contexts': ['browser_action', 'page_action'],
-  'onclick': function(info, tab){
-    chrome.tabs.create({'url': chrome.extension.getURL('man/man.html')});
-  }
-})
-
-
 function handleRequest(request, sender, cb) {
   if (request.to !== 'background')
   {
@@ -59,6 +39,13 @@ function handleRequest(request, sender, cb) {
     }
   }
 }
+
+chrome.commands.onCommand.addListener(function(command) {
+  if (command === 'toggle-panel')
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {to: 'dialog', type: 'toggle'})
+    })
+})
 
 chrome.runtime.onMessage.addListener(handleRequest)
 

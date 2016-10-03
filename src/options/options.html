@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Element Watcher Management</title>
+  <title>Element Watcher Options</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
   <link rel="stylesheet" href="../dist/milligram.min.css">
   <link rel="stylesheet" href="../dist/style.css">
-  <link rel="stylesheet" href="man.css">
+  <link rel="stylesheet" href="options.css">
 </head>
 <body>
 <div class="container" id="vue-root">
@@ -43,11 +43,27 @@
   </table>
   <div class="right-aligned">
     <div class="button button-outline green">Refresh All</div>
-    <div class="button button-outline red" @click="remove_all()">Remove All</div>
+    <div v-if="false" class="button button-outline red" @click="remove_all()">Remove All</div>
   </div>
+
+  <h5>Options</h5>
+  <table>
+    <tr><th>Checking Frequence</th><td>
+      <span>Every</span>
+      <select>
+        <option selected>15 min</option>
+        <option>1 hour</option>
+        <option>12 hours</option>
+        <option>1 day</option>
+        <option>3 days</option>
+        <option>1 week</option>
+        <option>1 month</option>
+      </select>
+    </td></tr>
+  </table>
 </div>
 
 <script src="../dist/vue.min.js"></script>
-<script src="man.js"></script>
+<script src="options.js"></script>
 </body>
 </html>

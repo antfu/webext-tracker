@@ -46,6 +46,6 @@ input {
   padding      : 0.4rem 0.8rem;
   margin-bottom: 0;
 }
-table {
-  margin-bottom: 0.3em;
+select {
+  margin-bottom: 0;
 }
