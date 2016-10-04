@@ -95,12 +95,12 @@ storage.watchers.clear = function () {
   storage.space.remove('watchers')
 }
 
-storage.watchers.listen = function () {
+storage.watchers.listen = function (callback) {
   chrome.storage.onChanged.addListener(function(changes, namespace) {
     if (namespace === storage.namespace)
-      storage.watchers()
+      storage.watchers(callback)
   })
-  storage.watchers()
+  storage.watchers(callback)
 }
 
 storage.watchers.json = function(pretty) {

@@ -37,13 +37,13 @@ field {
 table {
   margin-bottom: 0.3em;
 }
-#options {
+#close {
   position  : absolute;
   top       : 1.7em;
   right     : 2.7em;
-  opacity   : 0.3;
+  opacity   : 0.6;
   transition: opacity 0.15s ease-in;
 }
-#options:hover {
-  opacity: 0.6;
+#close:hover {
+  opacity: 0.9;
 }

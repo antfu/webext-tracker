@@ -5,7 +5,7 @@ A element watcher for any websites in the world.
 
 ## Install
 
-*⚠️ Warning: This extension is still in development,
+⚠️ *Warning: This extension is still in development,
 it may contains unknown bugs and may have feature breakings
 in the future releases.*
 

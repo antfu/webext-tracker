@@ -16,6 +16,9 @@ var mixin = {
         })
       })
     },
+    options: function() {
+      chrome.tabs.create({'url': chrome.extension.getURL('options/options.html')})
+    },
     refresh: function(watcher) {
       chrome.tabs.create({url: watcher.url, pinned:true, active:false}, function(tab) {
         console.log(tab);

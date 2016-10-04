@@ -22,8 +22,9 @@ document.getElementById('cancel').addEventListener('click', function () {
   chrome.runtime.sendMessage({to: 'dialog', type: 'hide'})
 })
 
-document.getElementById('options').addEventListener('click', function () {
-  chrome.runtime.sendMessage({to: 'background', type: 'options'})
+document.getElementById('close').addEventListener('click', function () {
+  chrome.runtime.sendMessage({to: 'dialog', type: 'hide'})
+  //chrome.runtime.sendMessage({to: 'background', type: 'options'})
 })
 
 document.getElementById('add').addEventListener('click', function () {

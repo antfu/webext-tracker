@@ -21,9 +21,9 @@
         <th>Description</th>
         <th>Status</th>
         <th>Update</th>
-      </tr>
+      </tr> 
     </thead>
-    <tbody>
+    <tbody id="tbody">
       <tr v-for="w in watchers" class="watcher" :class="{changed: w.text!=w.current}">
         <td class="desc"><a @click="navigate(w)">{{w.desc}}</a></td>
         <td class="current">
@@ -32,7 +32,7 @@
         </td>
         <td>{{humandate(w.update_time)}}</td>
       </tr>
-      <tr v-if="!watchers.length" style="font-style: italic; opacity: 0.5;">
+      <tr id="nowatchers" style="font-style: italic; opacity: 0.5;">
         <td>No watcher</td><td></td><td></td>
       </tr>
     </tbody>

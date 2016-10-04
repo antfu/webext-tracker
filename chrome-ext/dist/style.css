@@ -96,10 +96,12 @@ tr.watcher.changed .dot {
   opacity   : 0.5;
   background: #ed4c1a;
 }
-tr.watcher .current {
+tr.watcher .current,
+tr.watcher .current a {
   color: #468a11;
 }
-tr.watcher.changed .current {
+tr.watcher.changed .current,
+tr.watcher.changed .current a {
   color      : #ed4c1a;
   font-weight: 400;
 }
@@ -129,4 +131,7 @@ tr.watcher .orginal {
 }
 table tr:last-child td {
   border-bottom: none;
+}
+.hidden {
+  display: none;
 }
