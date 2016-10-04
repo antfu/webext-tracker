@@ -14,6 +14,10 @@ Install from [Chrome Web Store](https://chrome.google.com/webstore/detail/web-el
 ## Screenshots
 ![](screenshots/01.png)
 
+![](screenshots/02.png)
+
+![](screenshots/03.png)
+
 
 ## License
 MIT

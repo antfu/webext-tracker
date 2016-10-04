@@ -32,10 +32,12 @@ function handleRequest(request, sender, cb) {
       storage.watchers.edit(request.id, request.data)
     else if (request.type === 'update_text')
     {
+      console.log('Update', request)
       storage.watchers.update_text(request.id, request.text)
-      if (request.close)
-        chrome.tabs.remove(sender.tab.id)
+      cb({id: request.id, success: true})
     }
+    else if (request.type === 'close_me')
+      chrome.tabs.remove(sender.tab.id)
     else if (request.type === 'options')
       chrome.tabs.create({'url': chrome.extension.getURL('options/options.html')})
   }

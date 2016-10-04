@@ -115,15 +115,24 @@ Dialog.prototype.keydown = function (e) {
 Dialog.prototype.check_watchers = function(close){
   var that = this
   chrome.runtime.sendMessage({to: 'background', type: 'watchers'}, function(watchers) {
+    that.watchers = []
     var i = watchers.length
     while(i--)
       if (watchers[i].url.trim() == that.url.trim())
-      {
-        var watcher = watchers[i]
-        that.watchers.push(watcher)
-        var data = that.evaluate(watcher.xpath)
-        chrome.runtime.sendMessage({to: 'background', type: 'update_text', close:close, id:watcher.id, text:data.text})
-      }
+        that.watchers.push(watchers[i])
+
+    var i = that.watchers.length
+    var count = that.watchers.length
+    while(i--)
+    {
+      var watcher = that.watchers[i]
+      var data = that.evaluate(watcher.xpath)
+      chrome.runtime.sendMessage({to: 'background', type: 'update_text', id:watcher.id, text:data.text}, function() {
+        count--
+        if (count <= 0 && close)
+          chrome.runtime.sendMessage({to: 'background', type: 'close_me'})
+      })
+    }
   })
 }
 

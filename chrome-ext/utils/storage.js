@@ -60,12 +60,21 @@ storage.watchers.remove = function (id, callback) {
 }
 
 storage.watchers.edit = function (id, diff_dict, callback) {
+  if (storage.watchers.edit.editing)
+  {
+    setTimeout(function(){
+      storage.watchers.edit(id, diff_dict, callback)
+    }, 1)
+    return
+  }
+  storage.watchers.edit.editing = true
   callback = callback || noop
   diff_dict = diff_dict || {}
   storage.space.get({watchers:[]}, function(result) {
     var watchers = result.watchers
     var i = watchers.length
     while(i--)
+    {
       if (watchers[i].id == id)
       {
         for (var key in diff_dict)
@@ -73,6 +82,8 @@ storage.watchers.edit = function (id, diff_dict, callback) {
         storage.space.set({watchers:watchers}, callback)
         break
       }
+    }
+    storage.watchers.edit.editing = false
   })
 }
 

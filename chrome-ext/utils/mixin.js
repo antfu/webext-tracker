@@ -10,7 +10,6 @@ var mixin = {
     },
     navigate: function(watcher) {
       chrome.tabs.create({'url': watcher.url}, function(tab) {
-        console.log(tab);
         chrome.tabs.executeScript(tab.id, {
             code: 'WATCHER_CHECK("'+watcher.xpath+'");',
             runAt: 'document_idle'
@@ -27,9 +26,17 @@ var mixin = {
       })
     },
     refresh_all: function() {
+      var urls = []
       var i = this.watchers.length
       while(i--)
-        this.refresh(this.watchers[i])
+      {
+        var url = this.watchers[i].url
+        if (urls.indexOf(url) === -1)
+        {
+          this.refresh(this.watchers[i])
+          urls.push(url)
+        }
+      }
     },
     remove: function(watcher) {
       if (confirm("Are your sure to remove this watcher?"))
