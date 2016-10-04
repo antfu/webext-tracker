@@ -91,3 +91,20 @@ storage.watchers.listen = function () {
   })
   storage.watchers()
 }
+
+storage.watchers.json = function(pretty) {
+  if (pretty)
+    return JSON.stringify(storage.watchers.cache, null, ' ')
+  else
+    return JSON.stringify(storage.watchers.cache)
+}
+
+storage.watchers.import = function(json_str) {
+  var obj = JSON.parse(json_str)
+  var i = obj.length
+  while (i--)
+  {
+    var watch = obj[i]
+    storage.watchers.add(watch)
+  }
+}

@@ -15,6 +15,7 @@ a:hover {
   max-width   : 1400px;
   margin-right: auto;
   margin-left : auto;
+  padding     : 0 1.5rem;
 }
 .button {
   height        : 2.8rem;
@@ -108,18 +109,24 @@ tr.watcher .orginal {
   color        : rgba(0,0,0,0.3);
   font-size    : 0.8em;
 }
-.right-toolbar {
-  z-index: 100000;
+.right.toolbar {
+  z-index : 100000;
   position: absolute;
   top     : 0.3em;
   right   : 0.5em;
 }
-.right-toolbar i {
-  margin-left: 0.3em;
-  opacity    : 0.4;
+.toolbar i {
+  margin-left: 0.4em;
+  opacity    : 0.3;
   cursor     : pointer;
   transition : opacity 0.15s ease-in;
 }
-.right-toolbar i:hover {
+.toolbar i:hover {
   opacity: 0.7;
+}
+.toolbar i.red:hover {
+  color: rgb(226, 46, 46);
+}
+table tr:last-child td {
+  border-bottom: none;
 }

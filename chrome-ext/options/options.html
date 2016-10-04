@@ -4,6 +4,7 @@
   <title>Element Watcher Options</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,400,500,700,700italic">
   <link rel="stylesheet" href="../dist/milligram.min.css">
+  <link rel="stylesheet" href="../dist/material-icons/material-icons.css">
   <link rel="stylesheet" href="../dist/style.css">
 </head>
 <body>
@@ -19,7 +20,7 @@
         <th>Url</th>
         <th>Value</th>
         <th>Last update</th>
-        <th class="right-aligned">Actions</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -32,10 +33,10 @@
           <span>{{less(w.current)}}<span>
         </td>
         <td>{{humandate(w.update_time)}}</td>
-        <td class="auto right-aligned">
-          <div class="button button-outline green" @click="refresh(w)">Refresh</div>
-          <div class="button button-outline blue">Edit</div>
-          <div class="button button-outline red" @click="remove(w)">Remove</div>
+        <td class="toolbar right-aligned">
+          <i class="material-icons" @click="refresh(w)">refresh</i>
+          <i class="material-icons">edit</i>
+          <i class="material-icons red" @click="remove(w)">delete</i>
         </td>
       </tr>
       <tr v-if="!watchers.length" style="font-style: italic; opacity: 0.5;">
