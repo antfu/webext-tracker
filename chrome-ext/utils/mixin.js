@@ -41,6 +41,20 @@ var mixin = {
     },
     humandate: function(datastr) {
       return moment(datastr || '').fromNow()
+    },
+    export_data: function() {
+      function download(text, name, type) {
+        var a = document.createElement("a");
+        var file = new Blob([text], {type: type});
+        a.href = URL.createObjectURL(file);
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        delete a;
+      }
+
+      download(storage.watchers.json(), 'elwatcher_export_'+moment().format('YYMMDD_hhmmss')+'.json', 'application/json')
     }
   }
 }
