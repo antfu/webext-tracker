@@ -60,7 +60,7 @@ var mixin = {
         delete a;
       }
 
-      download(storage.watchers.json(), 'elwatcher_export_'+moment().format('YYMMDD_hhmmss')+'.json', 'application/json')
+      download(storage.watchers.json(), 'tracker_export_'+moment().format('YYMMDD_hhmmss')+'.json', 'application/json')
     }
   }
 }

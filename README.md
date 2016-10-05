@@ -1,4 +1,4 @@
-# Web Tracker
+# Tracker
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/nijeghmbfkeegaiihloeeknoidnajnlk.svg?style=flat-square)](https://chrome.google.com/webstore/detail/web-element-watcher/nijeghmbfkeegaiihloeeknoidnajnlk)
 
@@ -12,7 +12,7 @@ Install from [Chrome Web Store](https://chrome.google.com/webstore/detail/web-el
 
 ## Screenshots
 
-**_Recently renamed to "Web Tracker"_**
+**_Recently renamed to "Tracker"_**
 
 ![](screenshots/01.png)
 
@@ -27,8 +27,9 @@ Install from [Chrome Web Store](https://chrome.google.com/webstore/detail/web-el
 - [ ] Notifications
 - [ ] Badges for changed items
 - [ ] Tracker list for tracked url
-- [ ] More options on "Add Tracker" page
+- [ ] More options on "New Tracker" page
 - [ ] Add "Checking" status to dashboard
+- [ ] Import
 
 ## License
 

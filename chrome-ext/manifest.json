@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Web Tracker",
+  "name": "Tracker",
   "description": "A web element tracker for websites.",
   "version": "0.0.4",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
