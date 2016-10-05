@@ -80,8 +80,3 @@ chrome.commands.onCommand.addListener(function(command) {
 })
 
 chrome.runtime.onMessage.addListener(handleRequest)
-
-//chrome.browserAction.setPopup({popup: 'popup/popup.html'})
-//chrome.browserAction.onClicked.addListener(function (tab) {
-//  chrome.tabs.sendMessage(tab.id, {to: 'dialog', type: 'toggle'});
-//})

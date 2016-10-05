@@ -25,16 +25,14 @@ function removeElementsByClass(className){
 }
 
 function get_watchers() {
-  storage.watchers(function(data) {
+  storage.watchers(function (data) {
     watchers = data || []
     removeElementsByClass('watcher')
     if (!watchers.length)
-      nowatchers.className=''
-    else
-    {
-      nowatchers.className='hidden'
-      for (var i=0,j=watchers.length;i<j;i++)
-      {
+      nowatchers.className = ''
+    else {
+      nowatchers.className = 'hidden'
+      for (var i = 0, j = watchers.length; i < j; i++) {
         var w = watchers[i]
         var row = document.createElement("tr")
         var desc = document.createElement("td")
@@ -42,16 +40,16 @@ function get_watchers() {
         var navi_a = document.createElement("a")
         var opt_a = document.createElement("a")
         var time = document.createElement("td")
-        var changed = w.text==w.current
+        var changed = w.text != w.current
         row.className = changed ? 'changed watcher' : 'watcher'
         navi_a.innerHTML = w.desc
-        navi_a.addEventListener('click', function() {
+        navi_a.addEventListener('click', function () {
           funcs.navigate(w)
         })
-        desc.className ='desc'
+        desc.className = 'desc'
         desc.appendChild(navi_a)
-        opt_a.innerHTML = changed ? 'No changes' : 'Changed'
-        opt_a.addEventListener('click', function() {
+        opt_a.innerHTML = changed ? 'Changed' : 'No changes'
+        opt_a.addEventListener('click', function () {
           funcs.options()
         })
         current.className = 'current'

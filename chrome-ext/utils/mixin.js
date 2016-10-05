@@ -20,12 +20,8 @@ var mixin = {
       chrome.tabs.create({'url': chrome.extension.getURL('options/options.html')})
     },
     refresh: function(watcher) {
-      chrome.tabs.create({url: watcher.url, pinned:true, active:false}, function(tab) {
-        console.log(tab);
-        chrome.tabs.executeScript(tab.id, {
-            code: 'WATCHER_CHECK("'+watcher.xpath+'", true);',
-            runAt: 'document_idle'
-        })
+      checker.lite(watcher, function(text){
+        chrome.runtime.sendMessage({to: 'background', type: 'update_text', id:watcher.id, text:text})
       })
     },
     refresh_all: function() {

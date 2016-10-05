@@ -65,7 +65,7 @@ Dialog.prototype.watch = function(el) {
   this._data = {
     url: this.url,
     xpath: xpath,
-    text: querys.text,
+    text: querys.text.trim(),
     count: querys.count
   }
 
@@ -83,7 +83,7 @@ Dialog.prototype.evaluate = function(xpath) {
   var data = {
     url: this.url,
     xpath: xpath,
-    text: querys.text,
+    text: querys.text.trim(),
     count: querys.count
   }
 
