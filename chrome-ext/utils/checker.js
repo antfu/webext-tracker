@@ -7,7 +7,7 @@ checker.auto = function (watcher) {
 checker.lite = function (watcher, callback) {
   http_request_async('get', watcher.url, function (content) {
     var $ = cheerio.load(content)
-    var el = cheerio_xpath_evlutate($, watcher.xpath)
+    var el = cheerio_xpath_evaluate($, watcher.xpath)
     callback(el.text().trim(), watcher)
   })
 }
@@ -27,7 +27,7 @@ checker.tab = function (watcher, callback) {
 
 
 /* ====== Functions for Lite ====== */
-function cheerio_xpath_evlutate($, xpath) {
+function cheerio_xpath_evaluate($, xpath) {
   if (xpath.startsWith('/'))
     xpath = xpath.slice(1)
   if (xpath.toLowerCase().startsWith('html'))

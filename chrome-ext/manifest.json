@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Web Element Watcher",
-  "description": "A element watcher for any websites in the world.",
+  "name": "Web Tracker",
+  "description": "A web element tracker for websites.",
   "version": "0.0.4",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "options_page": "options/options.html",
