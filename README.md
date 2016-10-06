@@ -23,7 +23,7 @@ Install from [Chrome Web Store](https://chrome.google.com/webstore/detail/web-el
 ## Todo
 
 - [x] Request checking ( with out tabs )
-- [ ] Background checking ( also an option for it )
+- [x] Background checking ( also an option for it )
 - [ ] Notifications
 - [x] Badges for changed items
 - [ ] Tracker list for tracked url

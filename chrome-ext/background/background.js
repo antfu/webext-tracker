@@ -1,4 +1,7 @@
 
+var background_refresh_timeout = 1000 * 60 * 30 // 30 min
+var background_refresh_enabled = false
+
 storage.watchers.listen(function(watchers){
   var i = watchers.length
   changed = 0
@@ -60,15 +63,31 @@ function get_watcher_by_id(id)
   return null
 }
 
-function refresh_watcher(id) {
+function refresh_watcher(id, callback) {
   storage.watchers.set_checking(id)
   checker.lite(get_watcher_by_id(id), function(text){
-    storage.watchers.update_text(id, text)
+    storage.watchers.update_text(id, text, function () {
+      if(callback) callback(id)
+    })
   })
 }
 
-function refresh_all_watchers() {
+function background_refresh() {
+  chrome.browserAction.setIcon({path:'../icons/icon_refresh_128.png'})
+  refresh_all_watchers(function() {
+    chrome.browserAction.setIcon({path:'../icons/icon_128.png'})
+  })
+}
+
+function background_refresh_loop(){
+  background_refresh()
+  if (background_refresh_enabled)
+    setTimeout(background_refresh_loop, background_refresh_timeout)
+}
+
+function refresh_all_watchers(callback) {
   var watchers = storage.watchers.cache
+  var count = watchers.length
   var urls = []
   var i = watchers.length
   while(i--)
@@ -77,8 +96,12 @@ function refresh_all_watchers() {
     // Temporary disable duplicate url checking
     if (true || urls.indexOf(url) === -1)
     {
-      refresh_watcher(watchers[i].id)
       urls.push(url)
+      refresh_watcher(watchers[i].id, function() {
+        count--
+        if (count<=0 && callback)
+          callback()
+      })
     }
   }
 }
@@ -125,3 +148,5 @@ chrome.commands.onCommand.addListener(function(command) {
 })
 
 chrome.runtime.onMessage.addListener(handleRequest)
+
+setTimeout(background_refresh_loop, 3000)
