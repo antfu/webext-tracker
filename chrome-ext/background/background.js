@@ -1,7 +1,15 @@
 
 storage.watchers.listen(function(watchers){
-  chrome.browserAction.setBadgeText({text: watchers.length + ''})
-  chrome.browserAction.setBadgeBackgroundColor({color:'#299d50'})
+  var i = watchers.length
+  changed = 0
+  while (i--)
+    changed += watchers[i].text == watchers[i].current ? 0 : 1
+  if (changed == 0)
+    chrome.browserAction.setBadgeText({text: ''})
+  else {
+    chrome.browserAction.setBadgeText({text: changed + ''})
+    chrome.browserAction.setBadgeBackgroundColor({color:'#eb4d00'})
+  }
 })
 
 // Create one test item for each context type.

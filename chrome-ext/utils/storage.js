@@ -100,6 +100,10 @@ storage.watchers.update_text = function(id, text, callback) {
   storage.watchers.edit(id, {current: text, update_time: (new Date()).toISOString()}, callback)
 }
 
+storage.watchers.reset = function(watcher, callback) {
+  storage.watchers.edit(watcher.id, {text: watcher.current}, callback)
+}
+
 storage.watchers.clear = function () {
   storage.space.remove('watchers')
 }

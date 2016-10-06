@@ -21,8 +21,11 @@ var mixin = {
     },
     refresh: function(watcher) {
       checker.lite(watcher, function(text){
-        chrome.runtime.sendMessage({to: 'background', type: 'update_text', id:watcher.id, text:text})
+        storage.watchers.update_text(watcher.id, text)
       })
+    },
+    reset: function(watcher) {
+      storage.watchers.reset(watcher)
     },
     refresh_all: function() {
       var urls = []

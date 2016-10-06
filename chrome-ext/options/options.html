@@ -32,6 +32,7 @@
         </td>
         <td>{{humandate(w.update_time)}}</td>
         <td class="toolbar right-aligned">
+          <i class="material-icons" @click="reset(w)">check</i>
           <i class="material-icons" @click="refresh(w)">refresh</i>
           <i class="material-icons">edit</i>
           <i class="material-icons red" @click="remove(w)">delete</i>
