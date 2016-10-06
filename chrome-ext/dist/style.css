@@ -135,3 +135,14 @@ table tr:last-child td {
 .hidden {
   display: none;
 }
+#upload_btn {
+  position: relative;
+}
+#upload_btn input {
+  opacity : 0;
+  position: absolute;
+  top     : 0;
+  right   : 0;
+  left    : 0;
+  bottom  : 0;
+}

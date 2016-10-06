@@ -63,9 +63,9 @@ function cheerio_xpath_evaluate($, xpath) {
       }
 
       el = el.children(selector).eq(index)
-      console.log(xpath[i], '->', selector, index, '['+el.length+']')
-      console.log(el.text().trim())
-      console.log('------------')
+      //console.log(xpath[i], '->', selector, index, '['+el.length+']')
+      //console.log(el.text().trim())
+      //console.log('------------')
     }
   }
   return el

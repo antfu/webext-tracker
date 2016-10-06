@@ -45,7 +45,7 @@
   <div class="right-aligned">
     <div class="button button-outline green" @click="refresh_all()">Refresh All</div>
     <div class="button button-outline orange" @click="export_data()">Export</div>
-    <div class="button button-outline blue">Import</div>
+    <div class="button button-outline blue" id="upload_btn"><input type="file" id="upload_input" accept=".json"/>Import</div>
     <div v-if="false" class="button button-outline red" @click="remove_all()">Remove All</div>
   </div>
 
