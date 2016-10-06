@@ -30,7 +30,10 @@
           <div v-if="w.text!=w.current" class="orginal">{{w.text}}</div>
           <span>{{less(w.current)}}<span>
         </td>
-        <td>{{humandate(w.update_time)}}</td>
+        <td style="min-width:150px">
+          <span v-if="w.checking" class="checking-label">Checking...</span>
+          <span v-else>{{humandate(w.update_time)}}</span>
+        </td>
         <td class="toolbar right-aligned">
           <i class="material-icons" @click="reset(w)">check</i>
           <i class="material-icons" @click="refresh(w)">refresh</i>
@@ -50,12 +53,15 @@
     <div v-if="false" class="button button-outline red" @click="remove_all()">Remove All</div>
   </div>
 
-  <h5 style="opacity:0.4">Options</h5>
-  <table style="opacity:0.4">
+  <h5>Options</h5>
+  <table>
+    <tr><td>Behavior</td>
+    <td><input type="checkbox" style="vertical-align: inherit;"/> Refresh all trackers on Chrome start</td>
+    </tr>
     <tr><td>Checking Frequence</td><td>
       <span>Every</span>
-      <select disabled>
-        <option selected>15 min</option>
+      <select>
+        <option>15 min</option>
         <option>1 hour</option>
         <option>12 hours</option>
         <option>1 day</option>
@@ -70,8 +76,6 @@
 <script src="../utils/storage.js"></script>
 <script src="../dist/vue.min.js"></script>
 <script src="../dist/moment.min.js"></script>
-<script src="../dist/cheerio.js"></script>
-<script src="../utils/checker.js"></script>
 <script src="../utils/mixin.js"></script>
 <script src="options.js"></script>
 </body>

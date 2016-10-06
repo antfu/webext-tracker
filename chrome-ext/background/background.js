@@ -50,6 +50,39 @@ function notify() {
   })
 }
 
+function get_watcher_by_id(id)
+{
+  var watchers = storage.watchers.cache
+  var i = watchers.length
+  while(i--)
+    if (watchers[i].id == id)
+      return watchers[i]
+  return null
+}
+
+function refresh_watcher(id) {
+  storage.watchers.set_checking(id)
+  checker.lite(get_watcher_by_id(id), function(text){
+    storage.watchers.update_text(id, text)
+  })
+}
+
+function refresh_all_watchers() {
+  var watchers = storage.watchers.cache
+  var urls = []
+  var i = watchers.length
+  while(i--)
+  {
+    var url = watchers[i].url
+    // Temporary disable duplicate url checking
+    if (true || urls.indexOf(url) === -1)
+    {
+      refresh_watcher(watchers[i].id)
+      urls.push(url)
+    }
+  }
+}
+
 function handleRequest(request, sender, cb) {
   if (request.to !== 'background')
   {
@@ -77,6 +110,10 @@ function handleRequest(request, sender, cb) {
       chrome.tabs.remove(sender.tab.id)
     else if (request.type === 'options')
       chrome.tabs.create({'url': chrome.extension.getURL('options/options.html')})
+    else if (request.type === 'refresh')
+      refresh_watcher(request.id)
+    else if (request.type === 'refresh_all')
+      refresh_all_watchers()
   }
 }
 

@@ -25,11 +25,11 @@ Install from [Chrome Web Store](https://chrome.google.com/webstore/detail/web-el
 - [x] Request checking ( with out tabs )
 - [ ] Background checking ( also an option for it )
 - [ ] Notifications
-- [ ] Badges for changed items
+- [x] Badges for changed items
 - [ ] Tracker list for tracked url
 - [ ] More options on "New Tracker" page
-- [ ] Add "Checking" status to dashboard
-- [ ] Import
+- [x] Add "Checking" status to dashboard
+- [x] Import
 
 ## License
 

@@ -3,25 +3,11 @@ var watchers = []
 var tbody = document.getElementById('tbody')
 var nowatchers = document.getElementById('nowatchers')
 
-function refresh_all() {
-  var urls = []
-  var i = watchers.length
-  while(i--)
-  {
-    var url = watchers[i].url
-    if (urls.indexOf(url) === -1)
-    {
-      funcs.refresh(watchers[i])
-      urls.push(url)
-    }
+function removeElementsByClass(className) {
+  var elements = document.getElementsByClassName(className);
+  while (elements.length > 0) {
+    elements[0].parentNode.removeChild(elements[0]);
   }
-}
-
-function removeElementsByClass(className){
-    var elements = document.getElementsByClassName(className);
-    while(elements.length > 0){
-        elements[0].parentNode.removeChild(elements[0]);
-    }
 }
 
 function get_watchers() {
@@ -54,7 +40,8 @@ function get_watchers() {
         })
         current.className = 'current'
         current.appendChild(opt_a)
-        time.innerHTML = funcs.humandate(w.update_time)
+        time.innerHTML = w.checking ? 'Checking...' : funcs.humandate(w.update_time)
+        if(w.checking) time.className = 'checking-label'
         row.appendChild(desc)
         row.appendChild(current)
         row.appendChild(time)
@@ -64,23 +51,29 @@ function get_watchers() {
   })
 }
 
-chrome.storage.onChanged.addListener(function(changes, namespace) {
-  if (namespace === 'sync')
+chrome.storage.onChanged.addListener(function (changes, namespace) {
+  if (namespace === 'local')
     get_watchers()
 })
 
 get_watchers()
 
-document.getElementById('add').addEventListener('click', function() {
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, {to: 'dialog', type: 'toggle'})
+document.getElementById('add').addEventListener('click', function () {
+  chrome.tabs.query({
+    active: true,
+    currentWindow: true
+  }, function (tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, {
+      to: 'dialog',
+      type: 'toggle'
+    })
   })
 })
 
-document.getElementById('options').addEventListener('click', function() {
+document.getElementById('options').addEventListener('click', function () {
   funcs.options()
 })
 
-document.getElementById('refresh').addEventListener('click', function() {
-  refresh_all()
+document.getElementById('refresh').addEventListener('click', function () {
+  funcs.refresh_all.apply({watchers:watchers, refresh:funcs.refresh})
 })

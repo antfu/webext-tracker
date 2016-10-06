@@ -146,3 +146,8 @@ table tr:last-child td {
   left    : 0;
   bottom  : 0;
 }
+.checking-label
+{
+  font-style: italic;
+  color: #c7620f;
+}

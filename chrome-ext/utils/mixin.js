@@ -20,25 +20,13 @@ var mixin = {
       chrome.tabs.create({'url': chrome.extension.getURL('options/options.html')})
     },
     refresh: function(watcher) {
-      checker.lite(watcher, function(text){
-        storage.watchers.update_text(watcher.id, text)
-      })
+      chrome.runtime.sendMessage({to: 'background', type: 'refresh', id:watcher.id})
     },
     reset: function(watcher) {
       storage.watchers.reset(watcher)
     },
-    refresh_all: function() {
-      var urls = []
-      var i = this.watchers.length
-      while(i--)
-      {
-        var url = this.watchers[i].url
-        if (urls.indexOf(url) === -1)
-        {
-          this.refresh(this.watchers[i])
-          urls.push(url)
-        }
-      }
+    refresh_all: function(watchers) {
+      chrome.runtime.sendMessage({to: 'background', type: 'refresh_all'})
     },
     remove: function(watcher) {
       if (confirm("Are your sure to remove this watcher?"))

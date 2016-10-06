@@ -3,7 +3,7 @@ var storage = storage || {}
 
 var noop = function () {}
 
-storage.namespace = 'sync'
+storage.namespace = 'local'
 storage.space = chrome.storage[storage.namespace]
 
 storage.watchers = function (callback) {
@@ -28,9 +28,7 @@ storage.watchers.urls = function (callback) {
 storage.watchers.add = function (data, callback) {
   if (storage.watchers.updating)
   {
-    setTimeout(function(){
-      storage.watchers.add(data, callback)
-    }, 1)
+    setTimeout(function(){storage.watchers.add(data, callback)}, 1)
     return
   }
   storage.watchers.updating = true
@@ -45,15 +43,22 @@ storage.watchers.add = function (data, callback) {
       data.id = new_id
       watchers.push(data)
       storage.space.set({watchers:watchers}, function() {
-        storage.space.set({watcher_id:new_id}, function() {})
-        callback()
-        storage.watchers.updating = false
+        storage.space.set({watcher_id:new_id}, function() {
+          callback()
+          storage.watchers.updating = false
+        })
       })
     })
   })
 }
 
 storage.watchers.remove = function (id, callback) {
+  if (storage.watchers.updating)
+  {
+    setTimeout(function(){storage.watchers.add(data, callback)}, 1)
+    return
+  }
+  storage.watchers.updating = true
   callback = callback || noop
   storage.space.get({watchers:[]}, function(result) {
     var watchers = result.watchers
@@ -62,8 +67,11 @@ storage.watchers.remove = function (id, callback) {
       if (watchers[i].id == id)
       {
         watchers.splice(i,1)
-        storage.space.set({watchers:watchers}, callback)
-        break;
+        storage.space.set({watchers:watchers}, function(){
+            storage.watchers.updating = false
+            callback()
+        })
+        break
       }
   })
 }
@@ -71,9 +79,7 @@ storage.watchers.remove = function (id, callback) {
 storage.watchers.edit = function (id, diff_dict, callback) {
   if (storage.watchers.updating)
   {
-    setTimeout(function(){
-      storage.watchers.edit(id, diff_dict, callback)
-    }, 1)
+    setTimeout(function(){storage.watchers.edit(id, diff_dict, callback)}, 1)
     return
   }
   storage.watchers.updating = true
@@ -88,16 +94,28 @@ storage.watchers.edit = function (id, diff_dict, callback) {
       {
         for (var key in diff_dict)
           watchers[i][key] = diff_dict[key]
-        storage.space.set({watchers:watchers}, callback)
+        storage.space.set({watchers:watchers}, function(){
+            storage.watchers.updating = false
+            callback()
+        })
         break
       }
     }
-    storage.watchers.updating = false
   })
 }
 
-storage.watchers.update_text = function(id, text, callback) {
-  storage.watchers.edit(id, {current: text, update_time: (new Date()).toISOString()}, callback)
+storage.watchers.set_checking = function(id, callback) {
+  storage.watchers.edit(id, {
+    checking: true
+  }, callback)
+}
+
+storage.watchers.update_text = function (id, text, callback) {
+  storage.watchers.edit(id, {
+    current: text,
+    checking: false,
+    update_time: (new Date()).toISOString()
+  }, callback)
 }
 
 storage.watchers.reset = function(watcher, callback) {

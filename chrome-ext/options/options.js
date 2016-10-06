@@ -13,7 +13,7 @@ function get_watchers() {
 }
 
 chrome.storage.onChanged.addListener(function(changes, namespace) {
-  if (namespace === 'sync')
+  if (namespace === 'local')
     get_watchers()
 })
 
