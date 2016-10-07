@@ -12,9 +12,8 @@ function get_watchers() {
   })
 }
 
-chrome.storage.onChanged.addListener(function(changes, namespace) {
-  if (namespace === 'local')
-    get_watchers()
+storage.watchers.listen(function(watchers) {
+  app.watchers = watchers
 })
 
 document.getElementById('upload_input').addEventListener('change',function(e) {
@@ -27,5 +26,3 @@ document.getElementById('upload_input').addEventListener('change',function(e) {
   }
   reader.readAsText(file)
 })
-
-get_watchers()

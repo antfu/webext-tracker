@@ -10,53 +10,47 @@ function removeElementsByClass(className) {
   }
 }
 
-function get_watchers() {
-  storage.watchers(function (data) {
-    watchers = data || []
-    removeElementsByClass('watcher')
-    if (!watchers.length)
-      nowatchers.className = ''
-    else {
-      nowatchers.className = 'hidden'
-      for (var i = 0, j = watchers.length; i < j; i++) {
-        var w = watchers[i]
-        var row = document.createElement("tr")
-        var desc = document.createElement("td")
-        var current = document.createElement("td")
-        var navi_a = document.createElement("a")
-        var opt_a = document.createElement("a")
-        var time = document.createElement("td")
-        var changed = w.text != w.current
-        row.className = changed ? 'changed watcher' : 'watcher'
-        navi_a.innerHTML = w.desc
-        navi_a.addEventListener('click', function () {
-          funcs.navigate(w)
-        })
-        desc.className = 'desc'
-        desc.appendChild(navi_a)
-        opt_a.innerHTML = changed ? 'Changed' : 'No changes'
-        opt_a.addEventListener('click', function () {
-          funcs.options()
-        })
-        current.className = 'current'
-        current.appendChild(opt_a)
-        time.innerHTML = w.checking ? 'Checking...' : funcs.humandate(w.update_time)
-        if(w.checking) time.className = 'checking-label'
-        row.appendChild(desc)
-        row.appendChild(current)
-        row.appendChild(time)
-        tbody.insertBefore(row, nowatchers)
-      }
+function update_watchers(watchers) {
+  removeElementsByClass('watcher')
+  if (!watchers.length)
+    nowatchers.className = ''
+  else {
+    nowatchers.className = 'hidden'
+    for (var i = 0, j = watchers.length; i < j; i++) {
+      var w = watchers[i]
+      var row = document.createElement("tr")
+      var desc = document.createElement("td")
+      var current = document.createElement("td")
+      var navi_a = document.createElement("a")
+      var opt_a = document.createElement("a")
+      var time = document.createElement("td")
+      var changed = w.text != w.current
+      row.className = changed ? 'changed watcher' : 'watcher'
+      navi_a.innerHTML = w.desc
+      navi_a.addEventListener('click', function () {
+        funcs.navigate(w)
+      })
+      desc.className = 'desc'
+      desc.appendChild(navi_a)
+      opt_a.innerHTML = changed ? 'Changed' : 'No changes'
+      opt_a.addEventListener('click', function () {
+        funcs.options()
+      })
+      current.className = 'current'
+      current.appendChild(opt_a)
+      time.innerHTML = w.checking ? 'Checking...' : funcs.humandate(w.update_time)
+      if(w.checking) time.className = 'checking-label'
+      row.appendChild(desc)
+      row.appendChild(current)
+      row.appendChild(time)
+      tbody.appendChild(row)
     }
-  })
+  }
 }
 
-chrome.storage.onChanged.addListener(function (changes, namespace) {
-  if (namespace === 'local')
-    get_watchers()
+storage.watchers.listen(function (watchers) {
+  update_watchers(watchers)
 })
-
-get_watchers()
 
 document.getElementById('add').addEventListener('click', function () {
   chrome.tabs.query({
@@ -75,5 +69,5 @@ document.getElementById('options').addEventListener('click', function () {
 })
 
 document.getElementById('refresh').addEventListener('click', function () {
-  funcs.refresh_all.apply({watchers:watchers, refresh:funcs.refresh})
+  funcs.refresh_all()
 })

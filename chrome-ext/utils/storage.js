@@ -5,6 +5,28 @@ var noop = function () {}
 
 storage.namespace = 'local'
 storage.space = chrome.storage[storage.namespace]
+storage.listening = false
+
+storage.listen = function(callback){
+  storage.listen.callback.list.push(callback)
+  if (!storage.listening)
+  {
+    chrome.storage.onChanged.addListener(function(changes, namespace) {
+      if (namespace === storage.namespace)
+        storage.listen.callback()
+    })
+    storage.listening = true
+  }
+  storage.listen.callback()
+}
+
+storage.listen.callback = function() {
+  console.log(storage.listen.callback.list)
+  for (var i=0, j=storage.listen.callback.list.length; i<j; i++)
+    storage.listen.callback.list[i]()
+}
+
+storage.listen.callback.list = []
 
 storage.watchers = function (callback) {
   callback = callback || noop
@@ -127,11 +149,9 @@ storage.watchers.clear = function () {
 }
 
 storage.watchers.listen = function (callback) {
-  chrome.storage.onChanged.addListener(function(changes, namespace) {
-    if (namespace === storage.namespace)
-      storage.watchers(callback)
+  storage.listen(function(){
+    storage.watchers(callback)
   })
-  storage.watchers(callback)
 }
 
 storage.watchers.json = function(pretty) {

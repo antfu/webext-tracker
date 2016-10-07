@@ -35,7 +35,7 @@
           <span v-else>{{humandate(w.update_time)}}</span>
         </td>
         <td class="toolbar right-aligned">
-          <i class="material-icons" @click="reset(w)">check</i>
+          <i class="material-icons" @click="reset(w)" v-if="w.text!=w.current">check</i>
           <i class="material-icons" @click="refresh(w)">refresh</i>
           <i class="material-icons">edit</i>
           <i class="material-icons red" @click="remove(w)">delete</i>
@@ -71,6 +71,11 @@
       </select>
     </td></tr>
   </table>
+
+  <hr>
+  <footer>
+    <div class="right-aligned">Made by <a href="https://github.com/antfu">Anthony Fu</a></div>
+  </footer>
 </div>
 
 <script src="../utils/storage.js"></script>
