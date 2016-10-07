@@ -19,14 +19,14 @@ var mixin = {
     options: function() {
       chrome.tabs.create({'url': chrome.extension.getURL('options/options.html')})
     },
-    refresh: function(watcher) {
-      chrome.runtime.sendMessage({to: 'background', type: 'refresh', id:watcher.id})
+    refresh: function(watcher, method) {
+      chrome.runtime.sendMessage({to: 'background', type: 'refresh', method:method, id:watcher.id})
     },
     reset: function(watcher) {
       storage.watchers.reset(watcher)
     },
-    refresh_all: function(watchers) {
-      chrome.runtime.sendMessage({to: 'background', type: 'refresh_all'})
+    refresh_all: function(method) {
+      chrome.runtime.sendMessage({to: 'background', type: 'refresh_all', method:method})
     },
     remove: function(watcher) {
       if (confirm("Are your sure to remove this watcher?"))

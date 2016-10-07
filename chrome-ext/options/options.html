@@ -36,7 +36,7 @@
         </td>
         <td class="toolbar right-aligned">
           <i class="material-icons" @click="reset(w)" v-if="w.text!=w.current">check</i>
-          <i class="material-icons" @click="refresh(w)">refresh</i>
+          <i class="material-icons" @click="refresh(w)" @contextmenu.prevent="refresh(w,'tab')">refresh</i>
           <i class="material-icons">edit</i>
           <i class="material-icons red" @click="remove(w)">delete</i>
         </td>
@@ -47,35 +47,46 @@
     </tbody>
   </table>
   <div class="right-aligned">
-    <div class="button button-outline green" @click="refresh_all()">Refresh All</div>
+    <div class="button button-outline green" @click="refresh_all()" @contextmenu.prevent="refresh_all('tab')">Refresh All</div>
+    <div class="button button-outline red" @click="remove_all()">Remove All</div>
     <div class="button button-outline orange" @click="export_data()">Export</div>
     <div class="button button-outline blue" id="upload_btn"><input type="file" id="upload_input" accept=".json"/>Import</div>
-    <div v-if="false" class="button button-outline red" @click="remove_all()">Remove All</div>
   </div>
+
 
   <h5>Options</h5>
   <table>
-    <tr><td>Behavior</td>
+    <tr><td rowspan="2">Behavior</td>
+    <td style="padding-left: 0;">
+      <label class="switch" style="margin: 0 0.5em 0.2em 0.5em;">
+        <input v-model="configs.background_refresh" type="checkbox">
+        <div class="slider round"></div>
+      </label>
+      <span>Background Checking</span>
+      <select v-model="configs.background_timeout" class="select"
+             :disabled="!configs.background_refresh">
+        <option :value="10000">10s</option>
+        <option :value="30000">30s</option>
+        <option :value="60000">1min</option>
+        <option :value="120000">2min</option>
+        <option :value="300000">5min</option>
+        <option :value="600000">10min</option>
+        <option :value="900000">15min</option>
+        <option :value="1800000">30min</option>
+        <option :value="3600000">1 hour</option>
+      </select>
+      </td>
+    </tr>
+    <tr>
     <td>
-      <label class="switch">
+      <label class="switch" style="margin: 0 0.5em 0.2em 0.5em;">
         <input type="checkbox">
         <div class="slider round"></div>
       </label>
-      <span>Refresh all trackers on Chrome start<span>
+      <span>Refresh all trackers on Chrome start</span>
       </td>
     </tr>
-    <tr><td>Checking Frequence</td><td>
-      <span>Every</span>
-      <select>
-        <option>15 min</option>
-        <option>1 hour</option>
-        <option>12 hours</option>
-        <option>1 day</option>
-        <option>3 days</option>
-        <option>1 week</option>
-        <option>1 month</option>
-      </select>
-    </td></tr>
+    <tr></tr>
   </table>
 
   <hr>

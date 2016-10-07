@@ -1,5 +1,14 @@
-var background_refresh_timeout = 1000 * 60 * 30 // 30 min
-var background_refresh_enabled = true
+var configs = {}
+
+storage.configs.listen(function (new_configs) {
+  configs = new_configs
+  if (background_refresh_loop.timer)
+  {
+    clearTimeout(background_refresh_loop.timer)
+    background_refresh_loop.timer = null
+    background_refresh_loop.timer = setTimeout(background_refresh_loop, configs.background_timeout || 1800000)
+  }
+})
 
 storage.watchers.listen(function (watchers) {
   var i = watchers.length
@@ -36,19 +45,21 @@ function less(data, length) {
 }
 
 function notify(watcher) {
-  chrome.notifications.create({
+  chrome.notifications.create('tracker_' + watcher.id, {
     iconUrl: chrome.runtime.getURL('icons/icon_notify.png'),
     title: 'Tracker',
     type: 'list',
     message: 'Element change detected.',
     items: [
-      { title: watcher.desc },
+      { title: watcher.desc, message: '' },
       { title: 'Original', message: less(watcher.text) },
       { title: 'Current', message: less(watcher.current) }
     ],
     buttons: [{ title: 'Have a look' }, { title: 'All watchers' }],
     priority: 2,
     requireInteraction: true,
+  }, function (notificationId) {
+    console.log(notificationId)
   })
 }
 
@@ -61,11 +72,13 @@ function get_watcher_by_id(id) {
   return null
 }
 
-function refresh_watcher(id, callback) {
+function refresh_watcher(id, type, callback) {
   storage.watchers.set_checking(id)
   var watcher = get_watcher_by_id(id)
-  checker.lite(watcher, function (text) {
+  type = type || watcher.checker || 'lite'
+  checker[type](watcher, function (text) {
     storage.watchers.update_text(id, text, function (changed_keys) {
+      console.log(changed_keys)
       if (changed_keys.indexOf('current') !== -1)
         notify(watcher)
       if (callback) callback(id)
@@ -73,36 +86,45 @@ function refresh_watcher(id, callback) {
   })
 }
 
-function background_refresh() {
-  chrome.browserAction.setIcon({ path: '../icons/icon_refresh_128.png' })
-  refresh_all_watchers(function () {
-    chrome.browserAction.setIcon({ path: '../icons/icon_128.png' })
-  })
-}
-
-function background_refresh_loop() {
-  background_refresh()
-  if (background_refresh_enabled)
-    setTimeout(background_refresh_loop, background_refresh_timeout)
-}
-
-function refresh_all_watchers(callback) {
+function refresh_all_watchers(type, callback, background) {
   var watchers = storage.watchers.cache
   var count = watchers.length
   var urls = []
   var i = watchers.length
   while (i--) {
-    var url = watchers[i].url
-    // Temporary disable duplicate url checking
-    if (true || urls.indexOf(url) === -1) {
-      urls.push(url)
-      refresh_watcher(watchers[i].id, function () {
-        count--
-        if (count <= 0 && callback)
-          callback()
-      })
+    if (background && watchers[i].no_background) {
+      // If item disabled the background checking
+      count--
+      continue
+    } else {
+      var url = watchers[i].url
+        // Temporary disable duplicate url checking
+      if (true || urls.indexOf(url) === -1) {
+        urls.push(url)
+        refresh_watcher(watchers[i].id, type, function () {
+          count--
+          if (count <= 0 && callback)
+            callback()
+        })
+      }
     }
   }
+}
+
+function background_refresh() {
+  console.log('Background Checking Started...')
+  chrome.browserAction.setIcon({ path: '../icons/icon_refresh_128.png' })
+  refresh_all_watchers('lite', function () {
+    chrome.browserAction.setIcon({ path: '../icons/icon_128.png' })
+    console.log('Background Checking End...')
+  }, true)
+}
+
+function background_refresh_loop() {
+  if (configs.background_refresh)
+    background_refresh()
+  // Loop, default timeout is 30min
+  background_refresh_loop.timer = setTimeout(background_refresh_loop, configs.background_timeout || 1800000)
 }
 
 function handleRequest(request, sender, cb) {
@@ -132,9 +154,9 @@ function handleRequest(request, sender, cb) {
     else if (request.type === 'options')
       chrome.tabs.create({ 'url': chrome.extension.getURL('options/options.html') })
     else if (request.type === 'refresh')
-      refresh_watcher(request.id)
+      refresh_watcher(request.id, request.method)
     else if (request.type === 'refresh_all')
-      refresh_all_watchers()
+      refresh_all_watchers(request.method)
   }
 }
 

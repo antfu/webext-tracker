@@ -129,7 +129,8 @@ tr.watcher .orginal {
 .toolbar i.red:hover {
   color: rgb(226, 46, 46);
 }
-table tr:last-child td {
+table tr:last-child td,
+table tr:last-child th {
   border-bottom: none;
 }
 .hidden {
@@ -199,4 +200,12 @@ input:checked + .slider:before {
 }
 .slider.round:before {
   border-radius: 1em;
+}
+[disabled] {
+  opacity: 0.3;
+}
+.select {
+  width      : initial;
+  margin-left: 1em;
+  height     : initial;
 }

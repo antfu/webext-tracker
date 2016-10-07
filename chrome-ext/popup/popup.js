@@ -2,6 +2,8 @@ var funcs = mixin.methods
 var watchers = []
 var tbody = document.getElementById('tbody')
 var nowatchers = document.getElementById('nowatchers')
+var background_enabled = document.getElementById('background_enabled')
+var configs = {}
 
 function removeElementsByClass(className) {
   var elements = document.getElementsByClassName(className);
@@ -39,7 +41,7 @@ function update_watchers(watchers) {
       current.className = 'current'
       current.appendChild(opt_a)
       time.innerHTML = w.checking ? 'Checking...' : funcs.humandate(w.update_time)
-      if(w.checking) time.className = 'checking-label'
+      if (w.checking) time.className = 'checking-label'
       row.appendChild(desc)
       row.appendChild(current)
       row.appendChild(time)
@@ -52,15 +54,17 @@ storage.watchers.listen(function (watchers) {
   update_watchers(watchers)
 })
 
+storage.configs(function (new_configs) {
+  configs = new_configs
+  background_enabled.checked = configs.background_refresh || false
+})
+
 document.getElementById('add').addEventListener('click', function () {
   chrome.tabs.query({
     active: true,
     currentWindow: true
   }, function (tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, {
-      to: 'dialog',
-      type: 'toggle'
-    })
+    chrome.tabs.sendMessage(tabs[0].id, { to: 'dialog', type: 'toggle' })
   })
 })
 
@@ -70,4 +74,10 @@ document.getElementById('options').addEventListener('click', function () {
 
 document.getElementById('refresh').addEventListener('click', function () {
   funcs.refresh_all()
+})
+
+background_enabled.addEventListener('click', function() {
+  console.log(background_enabled.checked)
+  configs.background_refresh = background_enabled.checked
+  storage.configs.update({background_refresh: background_enabled.checked})
 })
