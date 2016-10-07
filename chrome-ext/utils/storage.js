@@ -59,7 +59,7 @@ storage.watchers.add = function (data, callback) {
     return
   }
   storage.watchers.updating = true
-    // The function
+  // The function
   callback = callback || noop
   storage.space.get({ watcher_id: 0 }, function (id_obj) {
     var new_id = id_obj.watcher_id + 1;

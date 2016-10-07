@@ -209,3 +209,12 @@ input:checked + .slider:before {
   margin-left: 1em;
   height     : initial;
 }
+.semitrans {
+  opacity: 0.5;
+}
+.quarttrans {
+  opacity: 0.2;
+}
+.ghost {
+  opacity: 0.05 !important;
+}

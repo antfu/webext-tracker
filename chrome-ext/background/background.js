@@ -1,13 +1,31 @@
 var configs = {}
+var checking = false
+var default_action_path = '../icons/icon_128.png'
+var onstart = true
 
 storage.configs.listen(function (new_configs) {
   configs = new_configs
-  if (background_refresh_loop.timer)
-  {
-    clearTimeout(background_refresh_loop.timer)
-    background_refresh_loop.timer = null
-    background_refresh_loop.timer = setTimeout(background_refresh_loop, configs.background_timeout || 1800000)
+  if (onstart) {
+    // Run Once on chrome start
+    if (configs.check_on_start)
+      setTimeout(background_refresh, 2000)
+    setTimeout(background_refresh_loop, configs.background_timeout || 1800000)
+    onstart = false
+  } else {
+    // Updates
+    if (background_refresh_loop.timer) {
+      clearTimeout(background_refresh_loop.timer)
+      background_refresh_loop.timer = setTimeout(background_refresh_loop, configs.background_timeout || 1800000)
+    }
+
+    if (configs.background_refresh)
+      default_action_path = '../icons/icon_128.png'
+    else
+      default_action_path = '../icons/icon_off_128.png'
+    if (!checking)
+      chrome.browserAction.setIcon({ path: default_action_path })
   }
+
 })
 
 storage.watchers.listen(function (watchers) {
@@ -45,17 +63,17 @@ function less(data, length) {
 }
 
 function notify(watcher) {
+  console.log('Notify', watcher.desc)
   chrome.notifications.create('tracker_' + watcher.id, {
     iconUrl: chrome.runtime.getURL('icons/icon_notify.png'),
-    title: 'Tracker',
+    title: watcher.desc + '  -  Tracker',
     type: 'list',
     message: 'Element change detected.',
     items: [
-      { title: watcher.desc, message: '' },
       { title: 'Original', message: less(watcher.text) },
       { title: 'Current', message: less(watcher.current) }
     ],
-    buttons: [{ title: 'Have a look' }, { title: 'All watchers' }],
+    buttons: [{ title: 'Have a look' }, { title: 'Reset use new value' }],
     priority: 2,
     requireInteraction: true,
   }, function (notificationId) {
@@ -113,9 +131,11 @@ function refresh_all_watchers(type, callback, background) {
 
 function background_refresh() {
   console.log('Background Checking Started...')
+  checking = true
   chrome.browserAction.setIcon({ path: '../icons/icon_refresh_128.png' })
   refresh_all_watchers('lite', function () {
-    chrome.browserAction.setIcon({ path: '../icons/icon_128.png' })
+    chrome.browserAction.setIcon({ path: default_action_path })
+    checking = false
     console.log('Background Checking End...')
   }, true)
 }
@@ -123,7 +143,7 @@ function background_refresh() {
 function background_refresh_loop() {
   if (configs.background_refresh)
     background_refresh()
-  // Loop, default timeout is 30min
+    // Loop, default timeout is 30min
   background_refresh_loop.timer = setTimeout(background_refresh_loop, configs.background_timeout || 1800000)
 }
 
@@ -145,7 +165,7 @@ function handleRequest(request, sender, cb) {
       storage.watchers.edit(request.id, request.data)
     else if (request.type === 'update_text') {
       storage.watchers.update_text(request.id, request.text, function (changed_keys) {
-        if ('current' in changed_keys)
+        if (changed_keys.indexOf('current') !== -1)
           notify(get_watcher_by_id(request.id))
       })
       cb({ id: request.id, success: true })
@@ -168,5 +188,3 @@ chrome.commands.onCommand.addListener(function (command) {
 })
 
 chrome.runtime.onMessage.addListener(handleRequest)
-
-setTimeout(background_refresh_loop, 2000)

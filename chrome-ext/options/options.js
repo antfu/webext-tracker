@@ -3,7 +3,8 @@ var app = new Vue({
   data: {
     watchers: {},
     configs: {
-      background_timeout: 1800000
+      background_timeout: 1800000,
+      check_on_start: true,
     },
   },
   mixins: [mixin]

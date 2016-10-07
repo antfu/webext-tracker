@@ -35,8 +35,9 @@
           <span v-else>{{humandate(w.update_time)}}</span>
         </td>
         <td class="toolbar right-aligned">
+          <i class="material-icons" :class="{ghost: !w.disabled}" v-if="false">do_not_disturb</i>
           <i class="material-icons" @click="reset(w)" v-if="w.text!=w.current">check</i>
-          <i class="material-icons" @click="refresh(w)" @contextmenu.prevent="refresh(w,'tab')">refresh</i>
+          <i class="material-icons" @click="refresh(w)" @contextmenu.prevent="refresh(w,'tab')">sync</i>
           <i class="material-icons">edit</i>
           <i class="material-icons red" @click="remove(w)">delete</i>
         </td>
@@ -47,7 +48,7 @@
     </tbody>
   </table>
   <div class="right-aligned">
-    <div class="button button-outline green" @click="refresh_all()" @contextmenu.prevent="refresh_all('tab')">Refresh All</div>
+    <div class="button button-outline green" @click="refresh_all()" @contextmenu.prevent="refresh_all('tab')">Recheck All</div>
     <div class="button button-outline red" @click="remove_all()">Remove All</div>
     <div class="button button-outline orange" @click="export_data()">Export</div>
     <div class="button button-outline blue" id="upload_btn"><input type="file" id="upload_input" accept=".json"/>Import</div>
@@ -80,10 +81,10 @@
     <tr>
     <td>
       <label class="switch" style="margin: 0 0.5em 0.2em 0.5em;">
-        <input type="checkbox">
+        <input type="checkbox" v-model="configs.check_on_start">
         <div class="slider round"></div>
       </label>
-      <span>Refresh all trackers on Chrome start</span>
+      <span>Recheck all trackers on Chrome start</span>
       </td>
     </tr>
     <tr></tr>
