@@ -1,6 +1,8 @@
 # Tracker
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/nijeghmbfkeegaiihloeeknoidnajnlk.svg?style=flat-square)](https://chrome.google.com/webstore/detail/web-element-watcher/nijeghmbfkeegaiihloeeknoidnajnlk)
+![State](https://img.shields.io/badge/state-alpha-red.svg?style=flat-square)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/antfu/tracker/blob/master/LICENSE)
 
 A web element tracker for websites.
 
