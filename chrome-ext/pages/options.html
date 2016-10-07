@@ -51,7 +51,10 @@
     <div class="button button-outline green" @click="refresh_all()" @contextmenu.prevent="refresh_all('tab')">Recheck All</div>
     <div class="button button-outline red" @click="remove_all()">Remove All</div>
     <div class="button button-outline orange" @click="export_data()">Export</div>
-    <div class="button button-outline blue" id="upload_btn"><input type="file" id="upload_input" accept=".json"/>Import</div>
+    <div class="button button-outline blue" id="upload_btn">
+      <input type="file" id="upload_input" @change="upload_and_import($event)" accept=".json"/>
+      Import
+    </div>
   </div>
 
 
@@ -100,6 +103,6 @@
 <script src="../dist/vue.min.js"></script>
 <script src="../dist/moment.min.js"></script>
 <script src="../utils/mixin.js"></script>
-<script src="options.js"></script>
+<script src="../utils/app.js"></script>
 </body>
 </html>

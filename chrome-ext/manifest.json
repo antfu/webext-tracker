@@ -3,9 +3,9 @@
 
   "name": "Tracker",
   "description": "A web element tracker for websites.",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "options_page": "options/options.html",
+  "options_page": "pages/options.html",
 
   "icons": {
     "200": "icons/icon_200.png"
@@ -31,7 +31,7 @@
 
   "browser_action": {
     "default_icon": "icons/icon_128.png",
-    "default_popup": "popup/popup.html"
+    "default_popup": "pages/popup.html"
   },
 
   "background": {
@@ -49,8 +49,7 @@
     "panel/*",
     "content/*",
     "background/*",
-    "options/*",
-    "dist/*",
-    "popup/*"
+    "pages/*",
+    "dist/*"
   ]
 }
