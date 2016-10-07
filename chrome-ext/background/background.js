@@ -97,6 +97,7 @@ function refresh_watcher(id, type, callback) {
   checker[type](watcher, function (text) {
     storage.watchers.update_text(id, text, function (changed_keys) {
       console.log(changed_keys)
+      watcher.current = text
       if (changed_keys.indexOf('current') !== -1)
         notify(watcher)
       if (callback) callback(id)
@@ -156,7 +157,7 @@ function handleRequest(request, sender, cb) {
     // Handle the Message sent to background
     if (request.type === 'add')
       storage.watchers.add(request.data, function () {
-        chrome.tabs.sendMessage(sender.tab.id, { to: 'dialog', type: 'hide' })
+        chrome.tabs.sendMessagewwwwwwwwww(sender.tab.id, { to: 'dialog', type: 'hide' })
         console.log('Add watch success', request.data)
       })
     else if (request.type === 'watchers')
@@ -188,3 +189,21 @@ chrome.commands.onCommand.addListener(function (command) {
 })
 
 chrome.runtime.onMessage.addListener(handleRequest)
+
+chrome.notifications.onButtonClicked.addListener(function (notificationId, buttonIndex) {
+  chrome.notifications.clear(notificationId)
+  var id = +notificationId.replace('tracker_', '')
+  var watcher = get_watcher_by_id(id)
+  if (watcher) {
+    if (buttonIndex === 0)
+      chrome.tabs.create({ 'url': watcher.url }, function (tab) {
+        chrome.tabs.executeScript(tab.id, {
+          code: 'WATCHER_CHECK("' + watcher.xpath + '");',
+          runAt: 'document_idle'
+        })
+      })
+    else if (buttonIndex == 1)
+      storage.watchers.reset(watcher)
+  }
+
+})
