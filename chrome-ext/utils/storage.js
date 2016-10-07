@@ -1,7 +1,12 @@
 var storage = storage || {}
 var noop = function () {}
-var waiting_time_out = 100
 
+storage.waiting_time_out = 100
+storage.default_configs = {
+  background_refresh: false,
+  background_timeout: 1800000,
+  check_on_start: false,
+}
 
 // The storage namespace that the model using ( can be 'sync' as well )
 storage.namespace = 'local'
@@ -55,11 +60,11 @@ storage.watchers.urls = function (callback) {
 storage.watchers.add = function (data, callback) {
   // Waiting until the previous operate finished
   if (storage.watchers.updating) {
-    setTimeout(function () { storage.watchers.add(data, callback) }, waiting_time_out)
+    setTimeout(function () { storage.watchers.add(data, callback) }, storage.waiting_time_out)
     return
   }
   storage.watchers.updating = true
-  // The function
+    // The function
   callback = callback || noop
   storage.space.get({ watcher_id: 0 }, function (id_obj) {
     var new_id = id_obj.watcher_id + 1;
@@ -83,11 +88,11 @@ storage.watchers.add = function (data, callback) {
 storage.watchers.remove = function (id, callback) {
   // Waiting until the previous operate finished
   if (storage.watchers.updating) {
-    setTimeout(function () { storage.watchers.add(data, callback) }, waiting_time_out)
+    setTimeout(function () { storage.watchers.add(data, callback) }, storage.waiting_time_out)
     return
   }
   storage.watchers.updating = true
-    // The function
+  // The function
   callback = callback || noop
   storage.space.get({ watchers: [] }, function (result) {
     var watchers = result.watchers
@@ -111,11 +116,11 @@ storage.watchers.remove = function (id, callback) {
 storage.watchers.edit = function (id, diff_dict, callback) {
   // Waiting until the previous operate finished
   if (storage.watchers.updating) {
-    setTimeout(function () { storage.watchers.edit(id, diff_dict, callback) }, waiting_time_out)
+    setTimeout(function () { storage.watchers.edit(id, diff_dict, callback) }, storage.waiting_time_out)
     return
   }
   storage.watchers.updating = true
-    // The function
+  // The function
   callback = callback || noop
   diff_dict = diff_dict || {}
   var changed_keys = []
@@ -189,6 +194,9 @@ storage.watchers.import = function (json_str) {
 storage.configs = function (callback) {
   callback = callback || noop
   storage.space.get({ configs: {} }, function (result) {
+    for (var key in storage.default_configs)
+      if (result.configs[key] === undefined)
+        result.configs[key] = default_configs[key]
     storage.configs.cache = result.configs
     callback(result.configs)
   })
@@ -203,7 +211,7 @@ storage.configs.listen = function (callback) {
 storage.configs.update = function (data, callback) {
   // Waiting until the previous operate finished
   if (storage.configs.updating) {
-    setTimeout(function () { storage.configs.update(data, callback) }, waiting_time_out)
+    setTimeout(function () { storage.configs.update(data, callback) }, storage.waiting_time_out)
     return
   }
   storage.configs.updating = true

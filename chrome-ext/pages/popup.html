@@ -8,17 +8,17 @@
 </head>
 <body style="min-width: 25em; line-height: 1em;">
 <div class="container" id="vue-root">
-  <h4><img id="logo" src="../icons/icon_200.png"/> Tracker</h4>
+  <h4><img class="logo" src="../icons/icon_200.png"/> Tracker</h4>
   <div class="right toolbar">
     <i class="material-icons" @click="add()">add</i>
     <i class="material-icons" @click="refresh_all()" @contextmenu.prevent="refresh_all('tab')">refresh</i>
-    <i class="material-icons" @click="options()">more_vert</i>
+    <i class="material-icons tooltip" @click="options()">more_vert</i>
     <label class="switch" style="vertical-align:top;margin-left:0.5em;">
       <input v-model="configs.background_refresh" type="checkbox">
       <div class="slider round"></div>
     </label>
   </div>
-  <table style="margin-bottom: 0.5em;">
+  <table class="nowarping" style="margin-bottom: 0.5em;">
     <thead>
       <tr>
         <th>Description</th>
@@ -31,10 +31,16 @@
       <tr v-for="w in watchers" class="watcher" :class="{changed: w.text!=w.current}">
         <td class="desc"><a @click="navigate(w)">{{w.desc}}</a></td>
         <td class="current">
-          <span v-if="w.text!=w.current">Changed</span>
-          <span v-else>No changes<span>
+          <span v-if="w.text!=w.current">CHANGED</span>
+          <span v-else>no changes<span>
         </td>
-        <td>{{humandate(w.update_time)}}</td>
+        <td>
+          <span v-if="w.checking" class="checking-label">Checking...</span>
+          <span v-else>{{humandate(w.update_time)}}</span>
+        </td>
+        <td class="toolbar right-aligned">
+          <i class="material-icons" @click="refresh(w)" @contextmenu.prevent="refresh(w,'tab')">sync</i>
+        </td>
       </tr>
       <tr v-if="!watchers.length" style="font-style: italic; opacity: 0.5;">
         <td>No watcher</td><td></td><td></td>

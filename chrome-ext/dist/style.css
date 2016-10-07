@@ -1,4 +1,4 @@
-#logo {
+.logo {
   width         : 1.4em;
   vertical-align: bottom;
 }
@@ -67,6 +67,11 @@ th {
 tr.watcher td,
 tr.watcher td div,
 tr.watcher td span {
+  max-width: 30em;
+}
+table.nowarping tr.watcher td,
+table.nowarping tr.watcher td div,
+table.nowarping tr.watcher td span {
   max-width    : 30em;
   white-space  : nowrap;
   overflow     : hidden;
@@ -136,10 +141,10 @@ table tr:last-child th {
 .hidden {
   display: none;
 }
-#upload_btn {
+.upload {
   position: relative;
 }
-#upload_btn input {
+.upload input {
   opacity : 0;
   position: absolute;
   top     : 0;
@@ -151,6 +156,34 @@ table tr:last-child th {
   font-style: italic;
   color     : #c7620f;
 }
+[disabled] {
+  opacity: 0.3;
+}
+.select {
+  width      : initial;
+  height     : initial;
+  margin-left: 1em;
+}
+.semitrans {
+  opacity: 0.5;
+}
+.quarttrans {
+  opacity: 0.2;
+}
+.ghost {
+  opacity: 0.05 !important;
+}
+.link-icon {
+  vertical-align: middle;
+  opacity       : 0.3;
+}
+ul {
+  list-style: none;
+}
+li {
+  margin-bottom: 1.5em;
+}
+/* --------- Slider Switch --------- */
 .switch {
   position      : relative;
   display       : inline-block;
@@ -201,20 +234,63 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 1em;
 }
-[disabled] {
-  opacity: 0.3;
+/* --------- Tooltip --------- */
+.tooltip {
+  position: relative;
 }
-.select {
-  width      : initial;
-  margin-left: 1em;
-  height     : initial;
+.tooltip .tooltiptext {
+  visibility      : hidden;
+  opacity         : 0;
+  background-color: #656565;
+  color           : #fff;
+  display         : block;
+  text-align      : center;
+  border-radius   : 6px;
+  padding         : 0.2em 0.4em 0.1em;
+  position        : absolute;
+  z-index         : 1;
+  transition      : 0.2s;
+  font-weight     : lighter;
+  font-size       : 0.8em;
 }
-.semitrans {
-  opacity: 0.5;
+.tooltip .tooltiptext.top {
+  bottom: 150%;
+  left  : 0;
 }
-.quarttrans {
-  opacity: 0.2;
+.tooltip .tooltiptext.bottom {
+  top : 150%;
+  left: -15%;
 }
-.ghost {
-  opacity: 0.05 !important;
+.tooltip .tooltiptext.right {
+  top : 0;
+  left: calc(100% + 1em);
+}
+.tooltip .tooltiptext::after {
+  content     : "";
+  position    : absolute;
+  border-width: 5px;
+  border-style: solid;
+}
+.tooltip .tooltiptext.top::after {
+  top         : 100%;
+  left        : 50%;
+  margin-left : -5px;
+  border-color: #656565 transparent transparent transparent;
+}
+.tooltip .tooltiptext.right::after {
+  top         : 50%;
+  left        : 0;
+  margin-left : -10px;
+  margin-top  : -5px;
+  border-color: transparent #656565 transparent transparent;
+}
+.tooltip .tooltiptext.bottom::after {
+  bottom      : 100%;
+  left        : 50%;
+  margin-left : -5px;
+  border-color: transparent transparent #656565 transparent;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity   : 0.95;
 }

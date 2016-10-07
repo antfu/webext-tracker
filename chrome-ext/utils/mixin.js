@@ -2,11 +2,7 @@ var mixin = {
   el: '#vue-root',
   data: {
     watchers: {},
-    configs: {
-      background_refresh: false,
-      background_timeout: 1800000,
-      check_on_start: false,
-    },
+    configs: storage.default_configs,
     listening: false
   },
   watch: {
@@ -61,36 +57,35 @@ var mixin = {
       chrome.runtime.sendMessage({ to: 'background', type: 'refresh_all', method: method })
     },
     remove: function (watcher) {
-      if (confirm("Are your sure to remove this watcher?"))
+      if (confirm('Are your sure to remove this watcher?'))
         storage.watchers.remove(watcher.id)
     },
     remove_all: function () {
-      if (confirm("Are your sure to remove all watchers?"))
+      if (confirm('Are your sure to remove all watchers?'))
         storage.watchers.clear()
     },
     humandate: function (datastr) {
       return moment(datastr || '').fromNow()
     },
+    download: function (text, name, type) {
+      var a = document.createElement('a');
+      var file = new Blob([text], { type: type });
+      a.href = URL.createObjectURL(file);
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      delete a;
+    },
     export_data: function () {
-      function download(text, name, type) {
-        var a = document.createElement("a");
-        var file = new Blob([text], { type: type });
-        a.href = URL.createObjectURL(file);
-        a.download = name;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        delete a;
-      }
-
-      download(storage.watchers.json(), 'tracker_export_' + moment().format('YYMMDD_hhmmss') + '.json', 'application/json')
+      this.download(storage.watchers.json(), 'tracker_export_' + moment().format('YYMMDD_hhmmss') + '.json', 'application/json')
     },
     open_panel: function () {
       chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         chrome.tabs.sendMessage(tabs[0].id, { to: 'dialog', type: 'toggle' })
       })
     },
-    upload_and_import: function(e) {
+    upload_and_import: function (e) {
       var files = e.target.files
       var file = files[0]
       var reader = new FileReader()
