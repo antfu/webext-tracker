@@ -146,8 +146,57 @@ table tr:last-child td {
   left    : 0;
   bottom  : 0;
 }
-.checking-label
-{
+.checking-label {
   font-style: italic;
-  color: #c7620f;
+  color     : #c7620f;
+}
+.switch {
+  position      : relative;
+  display       : inline-block;
+  width         : 36px;
+  height        : 20.4px;
+  margin        : 0.1em;
+  vertical-align: middle;
+}
+.switch input {
+  display: none;
+}
+.slider {
+  position          : absolute;
+  cursor            : pointer;
+  width             : 36px;
+  height            : 20.4px;
+  top               : 0;
+  left              : 0;
+  background-color  : #ccc;
+  -webkit-transition: 0.4s;
+  transition        : 0.4s;
+}
+.slider:before {
+  position          : absolute;
+  content           : "";
+  height            : 15.6px;
+  width             : 15.6px;
+  left              : 2.4px;
+  bottom            : 2.4px;
+  background-color  : white;
+  -webkit-transition: 0.4s;
+  transition        : 0.4s;
+}
+input:checked + .slider {
+  background-color: #4d9d1c;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px #4d9d1c;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(15.6px);
+  -ms-transform    : translateX(15.6px);
+  transform        : translateX(15.6px);
+}
+.slider.round {
+  border-radius: 1em;
+}
+.slider.round:before {
+  border-radius: 1em;
 }
