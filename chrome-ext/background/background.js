@@ -167,7 +167,11 @@ function handleRequest(request, sender, cb) {
     else if (request.type === 'update_text') {
       storage.watchers.update_text(request.id, request.text, function (changed_keys) {
         if (changed_keys.indexOf('current') !== -1)
-          notify(get_watcher_by_id(request.id))
+        {
+          var watcher = get_watcher_by_id(request.id)
+          watcher.current = text
+          notify(watcher)
+        }
       })
       cb({ id: request.id, success: true })
     } else if (request.type === 'close_me')

@@ -11,7 +11,7 @@
   <h4><img class="logo" src="../icons/icon_200.png"/> Tracker</h4>
   <div class="right toolbar">
     <i class="material-icons" @click="add()">add</i>
-    <i class="material-icons" @click="refresh_all()" @contextmenu.prevent="refresh_all('tab')">refresh</i>
+    <i class="material-icons" @click="refresh_all()" @contextmenu.prevent="refresh_all('tab')">sync</i>
     <i class="material-icons tooltip" @click="options()">more_vert</i>
     <label class="switch" style="vertical-align:top;margin-left:0.5em;">
       <input v-model="configs.background_refresh" type="checkbox">
@@ -24,7 +24,6 @@
         <th>Description</th>
         <th>Status</th>
         <th>Update</th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -37,9 +36,6 @@
         <td>
           <span v-if="w.checking" class="checking-label">Checking...</span>
           <span v-else>{{humandate(w.update_time)}}</span>
-        </td>
-        <td class="toolbar right-aligned">
-          <i class="material-icons" @click="refresh(w)" @contextmenu.prevent="refresh(w,'tab')">sync</i>
         </td>
       </tr>
       <tr v-if="!watchers.length" style="font-style: italic; opacity: 0.5;">

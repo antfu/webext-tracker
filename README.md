@@ -14,7 +14,7 @@ Install from [Chrome Web Store](https://chrome.google.com/webstore/detail/web-el
 
 ## Screenshots
 
-**_Recently renamed to "Tracker"_**
+Previous named "Web Element Watcher", **_Recently renamed to "Tracker"_**
 
 ![](screenshots/01.png)
 
@@ -28,12 +28,12 @@ Install from [Chrome Web Store](https://chrome.google.com/webstore/detail/web-el
 - [x] Background checking ( also an option for it )
 - [x] Notifications
 - [x] Badges for changed items
-- [ ] Tracker list for tracked url
+- [ ] Tracker list on tracked pages
 - [ ] More options on "New Tracker" page
 - [x] Add "Checking" status to dashboard
 - [x] Import
 - [x] Configures storages
-- [ ] Detect on new work failed
+- [ ] Detect on network failed
 - [x] Do-not-auto-check-this option for tracker
 - [ ] XPath editing
 
