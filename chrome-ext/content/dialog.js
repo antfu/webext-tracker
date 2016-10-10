@@ -18,7 +18,7 @@ Dialog = function () {
   this.watchers = []
 
   this.iframe = document.createElement('iframe')
-  this.iframe.src = chrome.runtime.getURL('../panel/panel.html')
+  this.iframe.src = chrome.runtime.getURL('../content/panel.html')
   this.iframe.id = 'wew-dialog'
     // Init to hidden so first showBar_() triggers fade-in.
   this.iframe.classList.add('hidden')

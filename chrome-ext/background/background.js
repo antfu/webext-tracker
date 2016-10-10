@@ -157,7 +157,7 @@ function handleRequest(request, sender, cb) {
     // Handle the Message sent to background
     if (request.type === 'add')
       storage.watchers.add(request.data, function () {
-        chrome.tabs.sendMessagewwwwwwwwww(sender.tab.id, { to: 'dialog', type: 'hide' })
+        chrome.tabs.sendMessage(sender.tab.id, { to: 'dialog', type: 'hide' })
         console.log('Add watch success', request.data)
       })
     else if (request.type === 'watchers')
@@ -177,7 +177,7 @@ function handleRequest(request, sender, cb) {
     } else if (request.type === 'close_me')
       chrome.tabs.remove(sender.tab.id)
     else if (request.type === 'options')
-      chrome.tabs.create({ 'url': chrome.extension.getURL('options/options.html') })
+      chrome.tabs.create({ 'url': chrome.extension.getURL('pages/options.html') })
     else if (request.type === 'refresh')
       refresh_watcher(request.id, request.method)
     else if (request.type === 'refresh_all')

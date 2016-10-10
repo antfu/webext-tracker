@@ -1,0 +1,56 @@
+body {
+  font-family: sans-serif;
+  font-size  : 1.2em;
+}
+html {
+  opacity: 0.95;
+}
+box {
+  position     : relative;
+  display      : block;
+  padding      : 0.5em 1em;
+  margin       : 1em;
+  background   : rgb(255, 255, 255);
+  border-radius: 0.6em;
+  box-shadow   : 1px 1px 19px 0 rgba(50, 50, 50, 0.1);
+}
+title {
+  display    : block;
+  font-weight: bold;
+  font-size  : 1.4em;
+}
+text {
+  display: inline-block;
+  color  : rgba(0,0,0,0.4);
+}
+field {
+  display      : inline-block;
+  background   : rgba(0,0,0,0.04);
+  border-radius: 0.2em;
+  word-break   : break-all;
+  padding      : 0 0.3em 0.1em;
+  color        : rgba(0,0,0,0.7);
+}
+.button {
+  margin        : 1em 0.3em 0.6em 0;
+  padding-bottom: 0.1em;
+}
+table {
+  margin-bottom: 0.3em;
+}
+th {
+  width: 4em;
+}
+.toolbar.bold {
+  margin    : 1em 1.5em -0.5em 0;
+}
+.toolbar.bold i {
+  opacity: 0.8;
+  text-shadow: 1px 1px 19px 0 rgba(50, 50, 50, 0.1);
+}
+box .toolbar {
+  position: absolute;
+  top     : 1.4em;
+  right   : 1.3em;
+  opacity : 0.6;
+}
