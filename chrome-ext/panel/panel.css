@@ -6,20 +6,21 @@ html {
   opacity: 0.95;
 }
 box {
+  position     : relative;
   display      : block;
   padding      : 0.5em 1em;
   margin       : 1em;
-  background   : #fff;
+  background   : rgb(255, 255, 255);
   border-radius: 0.6em;
-  box-shadow   : 1px 1px 19px 0 rgba(50, 50, 50, 0.3);
+  box-shadow   : 1px 1px 19px 0 rgba(50, 50, 50, 0.1);
 }
 title {
   display    : block;
   font-weight: bold;
   font-size  : 1.4em;
 }
-desc {
-  display: block;
+text {
+  display: inline-block;
   color  : rgba(0,0,0,0.4);
 }
 field {
@@ -37,12 +38,16 @@ field {
 table {
   margin-bottom: 0.3em;
 }
+th {
+  width: 4em;
+}
 #close {
   position  : absolute;
-  top       : 1.7em;
-  right     : 2.7em;
-  opacity   : 0.6;
-  transition: opacity 0.15s ease-in;
+  top       : 0.6em;
+  right     : 0.6em;
+  opacity   : 0.3;
+  cursor    : pointer;
+  transition: 0.15s ease-in;
 }
 #close:hover {
   opacity: 0.9;

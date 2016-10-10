@@ -121,6 +121,11 @@ Dialog.prototype.check_watchers = function(close){
       if (watchers[i].url.trim() == that.url.trim())
         that.watchers.push(watchers[i])
 
+    chrome.runtime.sendMessage({
+      to: 'panel',
+      type: 'trackers',
+      data: that.watchers
+    })
     var i = that.watchers.length
     var count = that.watchers.length
     while(i--)

@@ -40,7 +40,7 @@ Previous named "Web Element Watcher", **_Recently renamed to "Tracker"_**
 - [x] Background checking ( also an option for it )
 - [x] Notifications
 - [x] Badges for changed items
-- [ ] Tracker list on tracked pages
+- [x] Tracker list on tracked pages
 - [ ] More options on "New Tracker" page
 - [x] Add "Checking" status to dashboard
 - [x] Import
