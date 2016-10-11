@@ -164,6 +164,8 @@ function handleRequest(request, sender, cb) {
       cb(storage.watchers.cache)
     else if (request.type === 'update')
       storage.watchers.edit(request.id, request.data)
+    else if (request.type === 'remove_tracker')
+      storage.watchers.remove(request.id)
     else if (request.type === 'update_text') {
       storage.watchers.update_text(request.id, request.text, function (changed_keys) {
         if (changed_keys.indexOf('current') !== -1)

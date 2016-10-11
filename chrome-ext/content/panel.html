@@ -9,7 +9,7 @@
 <body>
   <div id="vue-root">
     <div class="toolbar bold right-aligned">
-      <i class="material-icons">chevron_left</i>
+      <i class="material-icons" v-if="false">chevron_left</i>
       <i class="material-icons" @click="options">more_vert</i>
       <i class="material-icons" @click="cancel">close</i>
     </div>
@@ -18,8 +18,8 @@
       <title>{{t.desc}}</title>
       <span>{{t.current}}</span>
       <div class="toolbar right-aligned">
-        <i class="material-icons">edit</i>
-        <i class="material-icons">delete</i>
+        <i v-if="false" class="material-icons">edit</i>
+        <i class="material-icons" @click="remove(t)">delete</i>
       </div>
     </box>
     <box>

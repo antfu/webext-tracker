@@ -17,6 +17,15 @@ var app = new Vue({
     },
     options: function() {
       chrome.runtime.sendMessage({to: 'background', type: 'options'})
+    },
+    remove: function(t) {
+      if (confirm('Are your sure to remove this watcher?'))
+      {
+        chrome.runtime.sendMessage({to: 'background', type: 'remove_tracker', id: t.id})
+        var index = app.trackers.indexOf(t);
+        if (index > -1)
+          app.trackers.splice(index, 1);
+      }
     }
   }
 })

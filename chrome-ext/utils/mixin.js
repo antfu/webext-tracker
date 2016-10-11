@@ -58,7 +58,7 @@ var mixin = {
     },
     remove: function (watcher) {
       if (confirm('Are your sure to remove this watcher?'))
-        storage.watchers.remove(watcher.id)
+        chrome.runtime.sendMessage({to: 'background', type: 'remove_tracker', id: watcher.id})
     },
     remove_all: function () {
       if (confirm('Are your sure to remove all watchers?'))
