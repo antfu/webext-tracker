@@ -1,1 +1,1 @@
-(new Vue({ mixins: [mixin] })).listen()
+(window.app = new Vue({ mixins: [mixin] })).listen()

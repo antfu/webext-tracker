@@ -17,25 +17,30 @@
         <th>Description</th>
         <th>Value</th>
         <th>Last update</th>
-        <th></th>
+        <th style="text-align:right;">Operation</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="w in watchers" class="watcher" :class="{changed: w.text!=w.current}">
-        <td style="width:2em;">{{w.id}}</td>
+        <td class="id">{{w.id}}</td>
         <td class="desc">
           <a @click="navigate(w)">{{w.desc}}</a>
           <span class="tooltip">
             <i class="material-icons link-icon">link</i>
             <span class="tooltiptext right">{{w.url}}</span>
           </span>
+          <span class="toolbar behaviors">
+            <i class="material-icons link-icon" @click="toggle_tab(w)" :class="{enabled:w.checker=='tab'}">tab</i>
+            <i class="material-icons link-icon" @click="toggle_background(w)" :class="{enabled:w.no_background}">do_not_disturb_off</i>
+          </span>
         </td>
         <td class="current">
           <div v-if="w.text!=w.current" class="orginal tooltip">
-            {{w.text}}
+            <div class="text">{{less(w.text)}}</div>
             <span class="tooltiptext top">{{w.text}}</span>
           </div>
-          <span class="tooltip">{{less(w.current)}}
+          <span class="tooltip">
+            <div class="text">{{less(w.current)}}</div>
             <span class="tooltiptext top">{{w.current}}</span>
           <span>
         </td>
@@ -95,8 +100,14 @@
       </label>
       <span>Recheck all trackers on Chrome start</span>
     </li>
+    <li>
+      <label class="switch" style="margin: 0 0.5em 0.2em 0.5em;">
+        <input type="checkbox" v-model="configs.show_values">
+        <div class="slider round"></div>
+      </label>
+      <span>Show values on popup window</span>
+    </li>
   </ul>
-
   <hr>
   <footer>
     <div class="right-aligned">made by <a href="https://github.com/antfu">Anthony Fu</a></div>

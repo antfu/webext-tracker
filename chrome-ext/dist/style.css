@@ -87,8 +87,14 @@ tr.watcher .dot {
   vertical-align: baseline;
   text-align    : center;
 }
+tr.watcher .id {
+  width: 2em;
+}
 tr.watcher .desc {
   font-weight: 400;
+}
+tr.watcher .desc .tag {
+  display: inline-block;
 }
 tr.watcher .url a {
   color     : rgba(0,0,0,0.7);
@@ -109,6 +115,10 @@ tr.watcher.changed .current,
 tr.watcher.changed .current a {
   color      : #ed4c1a;
   font-weight: 400;
+}
+tr.watcher .current .text {
+  white-space: nowrap;
+  display: inline-block;
 }
 tr.watcher .orginal {
   margin-top   : -0.1em;
@@ -133,6 +143,15 @@ tr.watcher .orginal {
 }
 .toolbar i.red:hover {
   color: rgb(226, 46, 46);
+}
+.toolbar.behaviors {
+  margin-right: 0.5em;
+}
+.toolbar.behaviors i {
+  opacity: 0.08;
+}
+.toolbar.behaviors i.enabled {
+  opacity: 0.5  ;
 }
 table tr:last-child td,
 table tr:last-child th {
@@ -280,7 +299,7 @@ input:checked + .slider:before {
 .tooltip .tooltiptext.right::after {
   top         : 50%;
   left        : 0;
-  margin-left : -10px;
+  margin-left : -9px;
   margin-top  : -5px;
   border-color: transparent #656565 transparent transparent;
 }

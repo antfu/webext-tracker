@@ -6,6 +6,7 @@ storage.default_configs = {
   background_refresh: false,
   background_timeout: 1800000,
   check_on_start: false,
+  show_values: true
 }
 
 // The storage namespace that the model using ( can be 'sync' as well )

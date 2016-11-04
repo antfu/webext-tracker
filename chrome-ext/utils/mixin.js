@@ -58,7 +58,16 @@ var mixin = {
     },
     remove: function (watcher) {
       if (confirm('Are your sure to remove this watcher?'))
-        chrome.runtime.sendMessage({to: 'background', type: 'remove_tracker', id: watcher.id})
+        chrome.runtime.sendMessage({ to: 'background', type: 'remove_tracker', id: watcher.id })
+    },
+    update_tracker: function (watcher, new_obj) {
+      chrome.runtime.sendMessage({ to: 'background', type: 'update', id: watcher.id, data: new_obj })
+    },
+    toggle_tab: function (watcher) {
+      this.update_tracker(watcher, { checker: watcher.checker == 'tab' ? 'lite' : 'tab' })
+    },
+    toggle_background: function (watcher) {
+      this.update_tracker(watcher, { no_background: !watcher.no_background })
     },
     remove_all: function () {
       if (confirm('Are your sure to remove all watchers?'))

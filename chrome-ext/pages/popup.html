@@ -23,6 +23,7 @@
       <tr>
         <th>Description</th>
         <th>Status</th>
+        <th v-if="configs.show_values">Value</th>
         <th>Update</th>
       </tr>
     </thead>
@@ -32,6 +33,9 @@
         <td class="current">
           <span v-if="w.text!=w.current">CHANGED</span>
           <span v-else>no changes<span>
+        </td>
+        <td class="current" v-if="configs.show_values">
+          {{less(w.current, 10)}}
         </td>
         <td>
           <span v-if="w.checking" class="checking-label">Checking...</span>
