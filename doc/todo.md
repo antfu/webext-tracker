@@ -1,4 +1,4 @@
-## Todo\
+## Todo
 - [x] Request checking ( with out tabs )
 - [x] Background checking ( also an option for it )
 - [x] Notifications

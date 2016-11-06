@@ -19,7 +19,7 @@ Install Tracker from [Chrome Web Store](https://chrome.google.com/webstore/detai
 [How it works](https://github.com/antfu/tracker/blob/doc/how_it_works.md)
 
 ## It can NOT do (for now):
-- Asynchronous loading content
+- Asynchronous loaded content
 - Contents with uncertain position  
 
 ## License

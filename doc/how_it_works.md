@@ -4,7 +4,7 @@ to locate the specific elements of the html page.
 When you create a tracker for an element, it recorded the XPath and the value of
 the element. Then it will checking if there is any changes to the element in background.
 
-## Querying Mode
+## Querying Modes
 - [Lite](#lite_mode)
 - [Tab](#tab_mode)
 
@@ -32,7 +32,7 @@ while querying (which is kinda annoying).
 You can change the querying mode in [Tracker Dashboard](chrome-extension://nijeghmbfkeegaiihloeeknoidnajnlk/pages/options.html).
 
 ## List of dependencies
-(included in this project)
+(included in project)
 
 - [XMLHttpRequest](http://www.w3schools.com/xml/ajax_xmlhttprequest_create.asp) for requesting the pages.
 - [cheerio](https://github.com/cheeriojs/cheerio) for evaluating the XPath.
