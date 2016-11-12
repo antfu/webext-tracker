@@ -13,6 +13,7 @@ Simply right click the element you interested and add it to tracker list. Then j
 Install Tracker from [Chrome Web Store](https://chrome.google.com/webstore/detail/web-element-watcher/nijeghmbfkeegaiihloeeknoidnajnlk)
 
 ## Screenshots
+![screenshot](https://cloud.githubusercontent.com/assets/11247099/20240436/0b7237f2-a953-11e6-88bb-0198e80f6540.png)
 ![screenshot](screenshots/04.png)
 
 ## How it works
