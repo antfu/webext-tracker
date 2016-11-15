@@ -19,7 +19,7 @@ Install Tracker from [Chrome Web Store](https://chrome.google.com/webstore/detai
 ![screenshot](screenshots/04.png)
 
 ## How it works
-[How it works](https://github.com/antfu/tracker/blob/doc/how_it_works.md)
+[How it works](doc/how_it_works.md)
 
 ## It can NOT do (for now):
 - Asynchronous loaded content
