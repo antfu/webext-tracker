@@ -11,7 +11,7 @@ Now you don't have to refresh a page again and again checking whether there is s
 Simply right click the element you interested and add it to tracker list. Then just sit back and relax,
 **Tracker** will notify you if any changes detected.
 
-Install Tracker from [Chrome Web Store](https://chrome.google.com/webstore/detail/web-element-watcher/nijeghmbfkeegaiihloeeknoidnajnlk)
+[![Available on Chrome Web Store](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png)](https://chrome.google.com/webstore/detail/web-element-watcher/nijeghmbfkeegaiihloeeknoidnajnlk)
 
 ## Screenshots
 ![screenshot](https://cloud.githubusercontent.com/assets/11247099/20240436/0b7237f2-a953-11e6-88bb-0198e80f6540.png)
