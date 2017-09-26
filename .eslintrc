@@ -1,0 +1,15 @@
+{
+  "extends": "equimper",
+  "plugins": [
+    "html"
+  ],
+  "rules": {
+    "semi": [2, "never"],
+    "curly": [2, "multi-or-nest"],
+    "no-unused-vars": "warn",
+    "no-param-reassign": "off",
+    "camelcase": "off",
+    "indent": ["error", 2, { "VariableDeclarator": 2, "ArrayExpression": 1 }],
+    "no-empty": "off"
+  }
+}

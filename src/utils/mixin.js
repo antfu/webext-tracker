@@ -93,6 +93,7 @@ var mixin = {
       chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         chrome.tabs.sendMessage(tabs[0].id, { to: 'dialog', type: 'toggle' })
       })
+      window.close()
     },
     upload_and_import: function (e) {
       var files = e.target.files

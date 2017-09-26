@@ -27,7 +27,7 @@
       <span>You can press <field>Shift</field> to select element</span>
 
       <table>
-        <tr><th>Desc</th><td><input type="text" placeholder="Description" v-model="adding.desc"></td></tr>
+        <tr><th>Desc</th><td><input type="text" :placeholder="auto_adding_desc || 'Description'" v-model="adding.desc" ></td></tr>
         <tr><th>Url</th><td><field>{{adding.url}}</field></td></tr>
         <tr><th>XPath</th><td><field>{{adding.xpath}}</field></td></tr>
         <tr><th>Text</th><td><field>{{adding.text}}</field></td></tr>

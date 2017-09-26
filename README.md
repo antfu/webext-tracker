@@ -24,7 +24,8 @@ Simply right click the element you interested and add it to tracker list. Then j
 ## How it works
 [How it works](doc/how_it_works.md)
 
-## It can NOT do (for now):
+## Limitation
+The following type of content may not work properly:
 - Asynchronous loaded content
 - Contents with uncertain position  
 

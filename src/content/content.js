@@ -8,16 +8,16 @@ document.addEventListener("mousedown", function (event) {
   }
 }, true)
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.to !== 'content')
     return
   if (request.type === 'watch_right_clicked') {
-    chrome.runtime.sendMessage({to: 'dialog', type: 'show'})
+    chrome.runtime.sendMessage({ to: 'dialog', type: 'show' })
     dialog.watch();
   }
 });
 
 function WATCHER_CHECK(xpath, close_after_finished) {
-  chrome.runtime.sendMessage({to: "dialog", type: "evaluate", data: {xpath: xpath}})
-  chrome.runtime.sendMessage({to: "dialog", type: "check", close: close_after_finished})
+  chrome.runtime.sendMessage({ to: "dialog", type: "evaluate", data: { xpath: xpath } })
+  chrome.runtime.sendMessage({ to: "dialog", type: "check", close: close_after_finished })
 }

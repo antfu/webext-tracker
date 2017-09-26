@@ -197,7 +197,7 @@ storage.configs = function (callback) {
   storage.space.get({ configs: {} }, function (result) {
     for (var key in storage.default_configs)
       if (result.configs[key] === undefined)
-        result.configs[key] = default_configs[key]
+        result.configs[key] = storage.default_configs[key]
     storage.configs.cache = result.configs
     callback(result.configs)
   })
